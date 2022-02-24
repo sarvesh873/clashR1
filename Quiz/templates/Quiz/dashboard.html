@@ -1,0 +1,46 @@
+<!-- Modal -->
+<div class="modal fade" id="dashboard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <table class="rwd-table">
+                <tbody>
+                    <tr>
+                        <th>sr no.</th>
+                        <th>Username</th>
+                        <th>firstname</th>
+            
+                        <th>year</th>
+                        <th>fianl_score</th>
+            
+                        
+                    </tr>
+                    {% for profil in profile|slice:":10" %}
+                    <tr>
+                        <td data-th="sr no.">
+                            {{ forloop.counter }}
+                        </td>
+                        <td data-th="Supplier username">
+                            {{profil.user.username}}
+                        </td>
+                        <td data-th="Supplier username">
+                            {{profil.user.first_name}}
+                        
+                        <td data-th="year">
+                            {{profil.year}}
+                        </td>
+                        <td data-th="fianl_score">
+                            {{profil.final_score}}
+                        </td>
+            
+                        
+                    </tr>
+                    {% endfor %}
+            
+            
+               
+            
+                </tbody>
+        </div>
+    </div>
+</div>

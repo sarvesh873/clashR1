@@ -1,0 +1,124 @@
+<script>
+    // if (sessionStorage.counter){
+    //     a = 1;
+    // }
+    // else{
+    // sessionStorage.counter = 0;}
+    let strcounter = "{{profile.time_counter}}";
+    let strtzcounter = "{{profile.time_rz_counter}}";
+    let strRZActive = "{{profile.red_zone_active}}";
+    console.log(strRZActive);
+    if(strRZActive == "False"){
+      RZactive = false;
+    }else{
+      RZactive = true;
+    }
+    let scounter = parseInt(strcounter);
+    let tzcounter = parseInt(strtzcounter);
+    if (sessionStorage.counter){
+        a = 1;
+    }
+    else{
+    sessionStorage.counter = scounter;}
+  
+    counter = sessionStorage.counter;
+  
+    // if(sessionStorage.counter)
+    var total_time = 28 * 60;
+  
+    // timer speed
+    let speed_str = "{{profile.time_speed}}"
+    let timer_speed = parseInt(speed_str)
+  
+    function formatTime(s) {
+      var min = ("0" + Math.floor(s / 60)).slice(-2);
+      var sec = ("0" + (s % 60)).slice(-2);
+  
+      return `${min}:${sec}`;
+    }
+  
+    function startTimer() {
+      timer = document.getElementById("timer");
+      timer.innerHTML = formatTime(total_time - sessionStorage.counter);
+      function secIncrement() {
+        sessionStorage.counter++;
+        console.log(sessionStorage.counter + "heheheee");
+        timer.innerHTML = formatTime(total_time - sessionStorage.counter);
+  
+        if (sessionStorage.counter >= total_time) {
+          clearInterval(interval);
+          document.getElementById("endQuizForm").submit();
+        }
+      }
+  
+      var interval = setInterval(secIncrement, timer_speed);
+      setInterval(redZoneSaveTimer, timer_speed);
+      setInterval(stopRZ, timer_speed);
+      setInterval(startRZ, timer_speed);
+    }
+  
+    function redZoneSaveTimer(){
+      rz_counter = document.getElementById('time_counter_rz');
+      rz_counter.value = sessionStorage.counter;
+    }
+  
+    function startRZ(){
+      if(sessionStorage.counter == 60 || sessionStorage.counter == 13*60){
+        document.getElementById("RZForm").submit();
+      }
+    }
+  
+    startTimer();
+  
+    // display selected radio
+    // document.getElementById("opt{{user_res.selected_option}}").checked = true;
+    // console.log("{{user_res.selected_option}}")
+  
+    // Save and next
+    function save_n_next() {
+      document.getElementById("counterHidden").value= sessionStorage.counter;
+      console.log(document.getElementById("counterHidden").value)
+      document.getElementById("saveNnext").submit();
+    }
+  
+    function clearSelection() {
+      var ele = document.getElementsByName("user_response");
+      for (var i = 0; i < ele.length; i++) ele[i].checked = false;
+    }
+    clearSelection();
+    function resetTimer() {
+      sessionStorage.clear();
+    }
+    
+    function stopRZ(){
+      if (sessionStorage.counter - tzcounter == 3*60 && RZactive){
+        document.getElementById('endRZCounter').value = sessionStorage.counter;
+        document.getElementById('endRZ').submit();
+  
+      }
+    }
+  </script>
+
+<form action="{%  url 'save-timer' %}" method="post" id = "saveTimerAjaxForm">
+  {% csrf_token %}
+  <input type="hidden" name="timer" id = "saveTimerAjax" value="0">
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{% csrf_token %}
+<script>
+
+  function saveAjaxTimer(){
+  
+  document.getElementById("saveTimerAjax").value = sessionStorage.counter;
+  var ajax = new XMLHttpRequest();
+  var data = document.getElementById("saveTimerAjaxForm");
+  var formdata = new FormData(data);
+  ajax.open("POST", "{% url 'save-timer' %}", true);
+  console.log(formdata);
+  ajax.send(formdata);
+}
+  setInterval(() => {
+    saveAjaxTimer();
+  }, 4000); 
+  
+</script>

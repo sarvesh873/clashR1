@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link href="{% static 'qpage/css/result.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <title>Result</title>
+
+</head>
+<body style="background-color: #11101d">
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background: linear-gradient(45deg,#19638b,#011722) "
+				<a class="navbar-brand" href="#">
+					<a href="" style="color: white; text-decoration: none; font-weight: 700; font-size: 22px;"></a>
+					<img href="{% url 'login' %}" src="{% static 'login/img/clashwhite.png' %}" alt="Bootstrap" width="80" class="d-inline-block align-top" style="position: fixed;">
+					</a>
+				  <button 
+					  class="navbar-toggler" 
+					  type="button" 
+					  data-bs-toggle="collapse" 
+					  data-bs-target="#toggleMobileMenu" 
+					  aria-controls="toggleMobileMenu" 
+					  aria-expanded="false" 
+					  aria-label="Toggle navigation"
+				  >
+				  <span class="navbar-toggler-icon"></span>
+				  </button>
+				<div class="pisblogo navbar">
+					<img src="{% static 'login/img/pisblogo.png' %}"  alt="Bootstrap" width="100">
+				</div>
+
+	</nav>
+    <div class="container-fluid d-flex p-0 w-100 h-100" style="height: auto;">
+        <div class="row p-0 w-100 h-100 mob-row">
+            <div class="col-sm-3 d-flex flex-column h-100 p-0">
+                <div class="container-fluid d-flex p-0 h-50 mt-5">
+                <div class="card m-auto rad-bor rou-mar" id="upper">
+                    <div class="cir" style="background-color: white;">
+                        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_xob3zt0y.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" autoplay loop></lottie-player>
+                    </div>
+                    <div class="card-body p-0 text-center">
+                        <h3>User Name</h3>
+ 
+                        <h4>{{user.username}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid d-flex p-0 h-50">
+                <div class="card m-auto rad-bor rou-mar mob-question" >
+                    <div class="cir">
+                        <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_wnbvxv9v.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" autoplay loop></lottie-player>
+                    </div>
+                    <div class="card-body p-0 text-center">
+                        <h3>Question Attempted</h3>
+         
+                        <h4>{{profile.number_of_submits}}</h4>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-sm-3 mt-2  p-0 h-100" style="position: relative; ">
+                <div class="bar7 hidden-mobile"></div>
+                <div class="bar5 hidden-mobile"></div>
+                <div class="bar2 hidden-mobile"></div>
+                <div class="prog-cir mx-auto">
+                    <div class="outer">
+                        <div class="inner">
+                            <div id="number" style="color: #92e6ff; font-size: 1.3rem">
+                                {{accu}}%
+                            </div>
+                        </div>
+                    </div>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400px" height="400px">
+                        <defs>
+                           <linearGradient id="GradientColor">
+                              <stop offset="0%" stop-color="#e91e63" />
+                              <stop offset="100%" stop-color="#673ab7" />
+                           </linearGradient>
+                        </defs>
+                        <circle cx="110" cy="110" r="100" stroke-linecap="round" />
+                    </svg>
+                </div>   
+                <div class="bar14 hidden-mobile"></div>
+                <div class="bar12 hidden-mobile"></div>
+                <div class="bar9 hidden-mobile"></div>
+            </div>
+            
+            <div class="col-sm h-100 p-0 d-flex flex-column">
+                <div class="container-fluid d-flex p-0 h-50 mt-5">
+                <div class="card my-auto rad-bor rou-mar1">
+                    <div class="cir">
+                        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_ctuexx1q.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" autoplay loop></lottie-player>
+                    </div>
+                    <div class="card-body p-0 text-center">
+                        <h3>Score</h3>
+
+                        <h4>{{profile.final_score}}</h4>
+                    </div>
+                </div>
+                </div>
+                <div class="container-fluid d-flex p-0 h-50">
+                    <div class="card my-auto mr-auto rad-bor rou-mar1 mob-correct">
+                    <div class="cir">
+                        <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_h7jvk4fc.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" autoplay loop></lottie-player>
+                    </div>
+                    <div class="card-body p-0 text-center">
+                        <h3>Correct Answered</h3>
+                        
+                        <h4>{{profile.correct_ques}}</h4>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-sm d-flex flex-column p-0 h-100">
+                <div class="container-fluid pt-3 d-flex my-auto">
+                    <div class="card mt-5" id="clash">
+                        <div class="card-header p-0  text-center">
+                            <b>Clash</b>
+                        </div>
+                        <div class="card-body" id="clash-pad">
+                            <textarea readonly id="ta" style="color: #11101d; background-color: #92e6ff;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis libero corrupti rerum saepe provident eius laudantium non minima iusto vitae quo optio quos, veritatis, quis ab officia aliquam cumque unde? 
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, quisquam delectus eveniet explicabo, ut officiis facilis sunt porro illo in nesciunt commodi soluta esse dolorum veniam animi nemo laboriosam distinctio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure doloremque beatae eum culpa vel possimus debitis minima! Illum praesentium iste tempore quia delectus? Ipsa facere ea, consequatur libero perspiciatis deserunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio molestias ipsum maxime accusantium neque maiores quae repellat est, voluptatum quis cum nulla minima iste quasi rerum quas soluta, nesciunt laborum!</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid d-flex my-auto">
+                    <div class="card my-3" id="sponser">
+                        <div class="card-header p-1  text-center">
+                            <b>Sponsors</b>
+                        </div>
+                        <div class="card-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+			<div class="middleieee">&copy; PICT IEEE Student Branch</div>
+		  </div>
+		</div>
+    </div>
+    <script>
+        var ctrlKeyDown = false;
+
+            $(document).ready(function(){    
+                $(document).on("keydown", keydown);
+                $(document).on("keyup", keyup);
+            });
+
+            function keydown(e) { 
+
+                if ((e.which || e.keyCode) == 116 || ((e.which || e.keyCode) == 82 && ctrlKeyDown)) {
+                    // Pressing F5 or Ctrl+R
+                    e.preventDefault();
+                } else if ((e.which || e.keyCode) == 17) {
+                    // Pressing  only Ctrl
+                    ctrlKeyDown = true;
+                }
+            };
+
+            function keyup(e){
+                // Key up Ctrl
+                if ((e.which || e.keyCode) == 17) 
+                    ctrlKeyDown = false;
+            };
+    </script>
+
+    <script>
+         let number = document.getElementById("number");
+         let acc = "{{accu}}"
+         let accu = parseInt(acc)
+         console.log(accu) 
+         let counter = 0;
+         setInterval(() => {
+             if(counter == accu)
+             {
+                 clearInterval();
+             }
+             else{
+                counter += 1;
+                number.innerHTML = "Accuracy : " + counter + "%"
+             }
+             
+         }, 50);
+    </script> 
+</body>
+</html>
