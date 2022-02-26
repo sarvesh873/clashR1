@@ -7,7 +7,7 @@
     let strcounter = "{{profile.time_counter}}";
     let strtzcounter = "{{profile.time_rz_counter}}";
     let strRZActive = "{{profile.red_zone_active}}";
-    console.log(strRZActive);
+    
     if(strRZActive == "False"){
       RZactive = false;
     }else{
@@ -42,7 +42,7 @@
       timer.innerHTML = formatTime(total_time - sessionStorage.counter);
       function secIncrement() {
         sessionStorage.counter++;
-        console.log(sessionStorage.counter + "heheheee");
+      
         timer.innerHTML = formatTime(total_time - sessionStorage.counter);
   
         if (sessionStorage.counter >= total_time) {
@@ -63,21 +63,19 @@
     }
   
     function startRZ(){
-      if(sessionStorage.counter == 2*60 - 7 || sessionStorage.counter == 20*60+27){
+      if(sessionStorage.counter == 3*60 + 17 || sessionStorage.counter == 20*60+27){
         document.getElementById("RZForm").submit();
       }
     }
   
     startTimer();
   
-    // display selected radio
-    // document.getElementById("opt{{user_res.selected_option}}").checked = true;
-    // console.log("{{user_res.selected_option}}")
+    
   
     // Save and next
     function save_n_next() {
       document.getElementById("counterHidden").value= sessionStorage.counter;
-      console.log(document.getElementById("counterHidden").value)
+     
       document.getElementById("saveNnext").submit();
     }
   
@@ -114,7 +112,7 @@
   var data = document.getElementById("saveTimerAjaxForm");
   var formdata = new FormData(data);
   ajax.open("POST", "{% url 'save-timer' %}", true);
-  console.log(formdata);
+  
   ajax.send(formdata);
 }
   setInterval(() => {
@@ -127,8 +125,8 @@
 
 {% if profile.red_zone_active %}
   <script>
-    console.log("RZ active")
-    document.getElementById('rzactivation').innerHTML = "Redzone Activated!";
+  
+    document.getElementById('rzactivation').innerHTML = "Combat Zone Activated!";
   </script>
 {% endif %}
 

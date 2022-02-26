@@ -1,4 +1,3 @@
-from tkinter.tix import Tree
 from django.shortcuts import render,HttpResponse, redirect
 from django.contrib import messages
 from .models import *
@@ -7,10 +6,11 @@ from django.contrib import auth
 import re
 import random
 import json
+import datetime
+import pytz
 
 total_ques = min(Question.objects.filter(level = "1").count(),Question.objects.filter(level = "2").count() )
-# print(Question.objects.filter(level = "1").count())
-# print(Question.objects.filter(level = "2").count())
+
 
 # Quiz View
 
@@ -27,7 +27,7 @@ def quiz(request):
     except:
         que_dict = json.loads(all_ques[profile.number_of_submits-1])
     que = Question.objects.get(pk = que_dict["id"])
-    print(que)
+    
     if request.method == 'POST':
         selected_option = int(request.POST.get('btnradio', 0))
         time_counter=int(request.POST.get('time_counter'))
@@ -88,6 +88,11 @@ def quiz(request):
                 inst = UserResponse(user = request.user, question = que, selected_option = selected_option)
                 inst.save()
                 return redirect("Quiz")
+   
+    utc=pytz.UTC
+    
+    if datetime.datetime.now().replace(tzinfo=utc) > (profile.login_time.replace(tzinfo=utc) + datetime.timedelta(minutes=47)):
+        return redirect('result')
         
     
     if profile.number_of_submits >= total_ques:
@@ -123,16 +128,16 @@ def quiz(request):
 
     profiles = extendeduser.objects.filter(level = profile.level).order_by('-final_score','time_counter')
 
-    print(profile.redzone_skipped, "skipping")
+    
     
     try:
         skiplife = UserLifelineData.objects.get(user = user)
-        print(skiplife.lifeline1_credits, "skip wala")
+        
         if(skiplife.lifeline1_credits == 0):
-            print("skip wala if")
+            
             skip = True
         else:
-            print("skip wala else")
+            
             skip = False
     except:
         skip = False
@@ -140,7 +145,7 @@ def quiz(request):
     if profile.redzone_skipped and skip :
         profile.redzone_skipped = False
         profile.save()
-        print("Quiz wale me gaya")
+        
         return redirect('skipped_red_zone')
     
 
@@ -172,7 +177,7 @@ def endquiz(request):
 
 # Login View
 def login(request):
-    print(total_ques)
+   
     if request.user.is_authenticated:
         return redirect('profile')
     if request.method == 'POST':
@@ -193,13 +198,15 @@ def login(request):
                         liveuser.level = "2"
                     for i in all_ques:
                         if liveuser.level == i.level:
-                            print(i)
+                            
                             user_ques.append(i.toJSON())
                             count += 1
                         if count == total_ques:
                             break
 
+                    liveuser.login_time = datetime.datetime.now()
 
+                
                     liveuser.random_ques = json.dumps(user_ques)
                 liveuser.save()
             else:
@@ -280,7 +287,7 @@ def lifeline(request):
     profile = extendeduser.objects.get(user=request.user)
     try:
         accu = profile.correct_ques / profile.number_of_submits * 100
-        print(profile.correct_ques)
+       
     except ZeroDivisionError:
         accu = 0
     if request.method == "POST":
@@ -347,7 +354,7 @@ def useLifeline(user1, selected_option, que):
         profile.marking_negative = -2
         # if profile.lifeline_skipped:
         #     profile.lifeline_skipped = False
-        #     print("Skipped me gaya")
+       
         #     llSkipped = True
 
         profile.save()
@@ -363,7 +370,7 @@ def red_zone(request):
         if(lifeline.lifeline_in_use == 1):
             profile.redzone_skipped = True
             profile.save()
-            print("lmno")
+            
             return redirect('Quiz')
     except:
         pass
@@ -443,7 +450,7 @@ def canUseLifeline(user1):
         inuse =lifeline.lifeline_in_use
     except:
         inuse = None
-    if profile.num_of_lifeline < 2 and inuse == None and accu >=30 and not profile.red_zone_active:
+    if profile.num_of_lifeline < 2 and inuse == None and accu >=30 and not profile.red_zone_active and profile.final_score >= 5:
         return True
     return False
 
@@ -460,7 +467,7 @@ def emerglogin(request):
             profile = auth.authenticate(username=username, password=password )
             if profile and super_user :
                 liveuser = extendeduser.objects.get(user=profile)
-                print("active")
+                
                 if liveuser.time_counter >= 1680:
                     messages.info(request,"The Player has Completed All Question..!!!")
                     return render(request, 'Quiz/emerglogin.html')
@@ -496,7 +503,7 @@ def switchtab(request):
 
 def skipped_red_zone(request):
     profile = extendeduser.objects.get(user = request.user)
-    print("Skipped rz called")
+    
     profile.red_zone_active = True
     profile.time_rz_counter = profile.time_counter
     
@@ -504,3 +511,5 @@ def skipped_red_zone(request):
     profile.save()
     messages.error(request,"Red Zone Started!!!!")
     return redirect('Quiz')
+
+
