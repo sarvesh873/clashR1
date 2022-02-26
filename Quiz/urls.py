@@ -17,4 +17,5 @@ urlpatterns = [
     path('leaderboard/',views.leaderboard,name='leaderboard'),
     path('emerglogin/', views.emerglogin, name='emerglogin'),
     path('switchtab/', views.switchtab, name='switchtab'),
+    path('skipped_red_zone/', views.skipped_red_zone, name='skipped_red_zone'),
 ]

@@ -512,7 +512,7 @@
             alert(
               `You have shifted the tab warnings remaining: ${context.changed}`
             );
-            if (context.changed <= 0) {
+            if (context.changed < 0) {
               logoutbutton = document.getElementById("switched");
               logoutbutton.onclick = document.getElementById("switched").click();
             }
@@ -520,5 +520,12 @@
         });
       });
   </script>
+
+    {% if profile.timer_speed == 500 %}
+      <script>
+        timer_field = document.getElementById("timer");
+      </script>
+    {% endif %}
+
   </body>
 </html>

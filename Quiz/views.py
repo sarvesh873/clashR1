@@ -1,3 +1,4 @@
+from tkinter.tix import Tree
 from django.shortcuts import render,HttpResponse, redirect
 from django.contrib import messages
 from .models import *
@@ -8,8 +9,8 @@ import random
 import json
 
 total_ques = min(Question.objects.filter(level = "1").count(),Question.objects.filter(level = "2").count() )
-print(Question.objects.filter(level = "1").count())
-print(Question.objects.filter(level = "2").count())
+# print(Question.objects.filter(level = "1").count())
+# print(Question.objects.filter(level = "2").count())
 
 # Quiz View
 
@@ -37,7 +38,6 @@ def quiz(request):
             if lifeline.lifeline_in_use is not None:
                 useLifeline(user, selected_option, que)
                 
-                print("submit increament")
                 # profile.save() #too dangerous
                 return redirect("Quiz")
         except:
@@ -122,6 +122,26 @@ def quiz(request):
         mark_neg = -int((profile.marking_positive+1) * 2 / 3)
 
     profiles = extendeduser.objects.filter(level = profile.level).order_by('-final_score','time_counter')
+
+    print(profile.redzone_skipped, "skipping")
+    
+    try:
+        skiplife = UserLifelineData.objects.get(user = user)
+        print(skiplife.lifeline1_credits, "skip wala")
+        if(skiplife.lifeline1_credits == 0):
+            print("skip wala if")
+            skip = True
+        else:
+            print("skip wala else")
+            skip = False
+    except:
+        skip = False
+
+    if profile.redzone_skipped and skip :
+        profile.redzone_skipped = False
+        profile.save()
+        print("Quiz wale me gaya")
+        return redirect('skipped_red_zone')
     
 
     question = Question.objects.get(pk = que_dict["id"])
@@ -301,6 +321,7 @@ def create_lifeline_model(user1):
 def useLifeline(user1, selected_option, que):
     lifeline = UserLifelineData.objects.get(user = user1)
     profile = extendeduser.objects.get(user = user1)
+    # llSkipped = False
 
     if lifeline.lifeline_in_use == 1 and lifeline.lifeline1_credits:
         profile.marking_positive += 1
@@ -311,6 +332,7 @@ def useLifeline(user1, selected_option, que):
             lifeline.lifeline_in_use = None
 
         lifeline.save()
+
 
     if(selected_option != que.correct_ans):
         profile.final_score+=profile.marking_negative
@@ -323,15 +345,36 @@ def useLifeline(user1, selected_option, que):
     if(lifeline.lifeline_in_use is None):
         profile.marking_positive = 4
         profile.marking_negative = -2
+        # if profile.lifeline_skipped:
+        #     profile.lifeline_skipped = False
+        #     print("Skipped me gaya")
+        #     llSkipped = True
+
         profile.save()
+        
+    # if llSkipped:
+    #     return redirect('red_zone')
     return
     
 def red_zone(request):
-    timer = request.POST.get("time_counter")
     profile = extendeduser.objects.get(user = request.user)
+    try:
+        lifeline = UserLifelineData.objects.get(user = request.user)
+        if(lifeline.lifeline_in_use == 1):
+            profile.redzone_skipped = True
+            profile.save()
+            print("lmno")
+            return redirect('Quiz')
+    except:
+        pass
+
+
+    timer = request.POST.get("time_counter")
+    
     profile.red_zone_active = True
     profile.time_counter = timer
     profile.time_rz_counter =timer
+    
     
     profile.save()
     messages.error(request,"Red Zone Started!!!!")
@@ -449,3 +492,15 @@ def switchtab(request):
     # messages.error(request, "You at max!!")
     context = {'changed': int(profile.tab)}
     return JsonResponse(context)
+
+
+def skipped_red_zone(request):
+    profile = extendeduser.objects.get(user = request.user)
+    print("Skipped rz called")
+    profile.red_zone_active = True
+    profile.time_rz_counter = profile.time_counter
+    
+    
+    profile.save()
+    messages.error(request,"Red Zone Started!!!!")
+    return redirect('Quiz')

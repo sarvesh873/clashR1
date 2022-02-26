@@ -73,6 +73,7 @@ class extendeduser(models.Model):
     questions_alloted = models.BooleanField(default=False)
     level = models.CharField(max_length=20,default="1")
     tab = models.IntegerField(default=25)
+    redzone_skipped = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.username}'
