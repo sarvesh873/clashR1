@@ -1,194 +1,316 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    {% load static %}
-<head> 
+
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <link href="{% static 'qpage/css/result.css' %}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <title>Result</title>
-
+    <title>
+        Clash | Result
+    </title>
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- APP CSS -->
+    <link rel="stylesheet"  href="{% static 'result/css/grid.css' %}" >
+    <link rel="stylesheet"  href="{% static 'result/css/app.css' %}" >
+    <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
 </head>
-<body style="background-color: #11101d">
 
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background: linear-gradient(45deg,#19638b,#011722) "
-				<a class="navbar-brand" href="#">
-					<a href="" style="color: white; text-decoration: none; font-weight: 700; font-size: 22px;"></a>
-					<img href="{% url 'login' %}" src="{% static 'login/img/clashwhite.png' %}" alt="Bootstrap" width="80" class="d-inline-block align-top" style="position: fixed;">
-					</a>
-				  <button 
-					  class="navbar-toggler" 
-					  type="button" 
-					  data-bs-toggle="collapse" 
-					  data-bs-target="#toggleMobileMenu" 
-					  aria-controls="toggleMobileMenu" 
-					  aria-expanded="false" 
-					  aria-label="Toggle navigation"
-				  >
-				  <span class="navbar-toggler-icon"></span>
-				  </button>
-				<div class="pisblogo navbar">
-					<img src="{% static 'login/img/pisblogo.png' %}"  alt="Bootstrap" width="100">
-				</div>
-
-	</nav>
-    <div class="container-fluid d-flex p-0 w-100 h-100" style="height: auto;">
-        <div class="row p-0 w-100 h-100 mob-row">
-            <div class="col-sm-3 d-flex flex-column h-100 p-0">
-                <div class="container-fluid d-flex p-0 h-50 mt-5">
-                <div class="card m-auto rad-bor rou-mar" id="upper">
-                    <div class="cir" style="background-color: white;">
-                        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_xob3zt0y.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" autoplay loop></lottie-player>
+<body>
+    <section class="navigation">
+		<div class="nav-container">
+		  <div class="brand">
+			  <!--logo of both clash and pisb will be added later in the navbar-->
+			<a href="{% url 'login' %}">Clash</a>
+			<a href="#">PISB</a>
+		  </div>
+		  <nav>
+			<div class="nav-mobile"><a id="navbar-toggle" href="#"><span></span></a></div>
+			<ul class="nav-list">
+			  <!-- <li>
+				<a href="#">Instructions</a>
+			  </li>
+			  <li>
+				<a href="#">Leaderboard</a>
+			  </li> -->
+			  <li>
+				<a href="#!">Logout</a>
+			  </li>
+			</ul>
+		  </nav>
+		</div>
+	</section>
+    <!-- MAIN CONTENT -->
+    <div class="main">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="box box-hover">
+                        <!-- COUNTER -->
+                        <div class="counter">
+                            <div class="counter-title">
+                                Username
+                            </div>
+                            <div class="counter-info">
+                                <div class="counter-count">
+                                    {{user.username}}
+                                </div>
+                                <i class='fa fa-user'></i>
+                            </div>
+                        </div>
+                        <!-- END COUNTER -->
                     </div>
-                    <div class="card-body p-0 text-center">
-                        <h3>User Name</h3>
- 
-                        <h4>{{user.username}}</h4>
+                </div>
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="box box-hover">
+                        <!-- COUNTER -->
+                        <div class="counter">
+                            <div class="counter-title">
+                                Score
+                            </div>
+                            <div class="counter-info">
+                                <div class="counter-count">
+                                    {{profile.final_score}}
+                                </div>
+                                <i class='fa fa-line-chart'></i>
+                            </div>
+                        </div>
+                        <!-- END COUNTER -->
+                    </div>
+                </div>
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="box box-hover">
+                        <!-- COUNTER -->
+                        <div class="counter">
+                            <div class="counter-title">
+                                Questions attempted
+                            </div>
+                            <div class="counter-info">
+                                <div class="counter-count">
+                                    {{profile.number_of_submits}}
+                                </div>
+                                <i class='fa fa-question' style="font-size:35px"></i>
+                            </div>
+                        </div>
+                        <!-- END COUNTER -->
+                    </div>
+                </div>
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="box box-hover">
+                        <!-- COUNTER -->
+                        <div class="counter">
+                            <div class="counter-title">
+                                Correct answered
+                            </div>
+                            <div class="counter-info">
+                                <div class="counter-count">
+                                    {{profile.correct_ques}}
+                                </div>
+                                <i class='fa fa-check'></i>
+                            </div>
+                        </div>
+                        <!-- END COUNTER -->
                     </div>
                 </div>
             </div>
-            <div class="container-fluid d-flex p-0 h-50">
-                <div class="card m-auto rad-bor rou-mar mob-question" >
-                    <div class="cir">
-                        <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_wnbvxv9v.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" autoplay loop></lottie-player>
+
+            <div class="row">
+                <div class="col-5 col-md-6 col-sm-12">
+                    <!-- TOP PRODUCT -->
+                    <div class="clash-info">
+                        <div class="box f-height">
+                            <div class="box-header">
+                                Clash
+                            </div><br>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae qui consequuntur aperiam architecto fuga, cumque sunt earum autem placeat nemo voluptatum reiciendis, numquam quas iste natus dolor voluptatibus aut perferendis.<br><br> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum quas voluptatibus temporibus reiciendis, doloremque earum nisi odit voluptas impedit officia enim? Pariatur itaque quia ad sit soluta amet at ducimus!
+                        </div>
                     </div>
-                    <div class="card-body p-0 text-center">
-                        <h3>Question Attempted</h3>
-         
-                        <h4>{{profile.number_of_submits}}</h4>
-                    </div>
+                    
+                    <!-- TOP PRODUCT -->
                 </div>
-            </div>
-            </div>
-            <div class="col-sm-3 mt-2  p-0 h-100" style="position: relative; ">
-                <div class="bar7 hidden-mobile"></div>
-                <div class="bar5 hidden-mobile"></div>
-                <div class="bar2 hidden-mobile"></div>
-                <div class="prog-cir mx-auto">
-                    <div class="outer">
-                        <div class="inner">
-                            <div id="number" style="color: #92e6ff; font-size: 1.3rem">
-                                {{accu}}%
+                <div class="col-4 col-md-6 col-sm-12">
+                    <!-- CATEGORY CHART -->
+                    <div class="pie-chart">
+                        <div class="box-piechart f-height">
+                            <div class="box-body">
+                                <div id="category-chart"></div>
                             </div>
                         </div>
                     </div>
-
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400px" height="400px">
-                        <defs>
-                           <linearGradient id="GradientColor">
-                              <stop offset="0%" stop-color="#e91e63" />
-                              <stop offset="100%" stop-color="#673ab7" />
-                           </linearGradient>
-                        </defs>
-                        <circle cx="110" cy="110" r="100" stroke-linecap="round" />
-                    </svg>
-                </div>   
-                <div class="bar14 hidden-mobile"></div>
-                <div class="bar12 hidden-mobile"></div>
-                <div class="bar9 hidden-mobile"></div>
-            </div>
-            
-            <div class="col-sm h-100 p-0 d-flex flex-column">
-                <div class="container-fluid d-flex p-0 h-50 mt-5">
-                <div class="card my-auto rad-bor rou-mar1">
-                    <div class="cir">
-                        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_ctuexx1q.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" autoplay loop></lottie-player>
-                    </div>
-                    <div class="card-body p-0 text-center">
-                        <h3>Score</h3>
-
-                        <h4>{{profile.final_score}}</h4>
-                    </div>
+                    
+                    <!-- END CATEGORY CHART -->
                 </div>
-                </div>
-                <div class="container-fluid d-flex p-0 h-50">
-                    <div class="card my-auto mr-auto rad-bor rou-mar1 mob-correct">
-                    <div class="cir">
-                        <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_h7jvk4fc.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" autoplay loop></lottie-player>
-                    </div>
-                    <div class="card-body p-0 text-center">
-                        <h3>Correct Answered</h3>
-                        
-                        <h4>{{profile.correct_ques}}</h4>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-sm d-flex flex-column p-0 h-100">
-                <div class="container-fluid pt-3 d-flex my-auto">
-                    <div class="card mt-5" id="clash">
-                        <div class="card-header p-0  text-center">
-                            <b>Clash</b>
-                        </div>
-                        <div class="card-body" id="clash-pad">
-                            <textarea readonly id="ta" style="color: #11101d; background-color: #92e6ff;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis libero corrupti rerum saepe provident eius laudantium non minima iusto vitae quo optio quos, veritatis, quis ab officia aliquam cumque unde? 
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, quisquam delectus eveniet explicabo, ut officiis facilis sunt porro illo in nesciunt commodi soluta esse dolorum veniam animi nemo laboriosam distinctio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure doloremque beatae eum culpa vel possimus debitis minima! Illum praesentium iste tempore quia delectus? Ipsa facere ea, consequatur libero perspiciatis deserunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio molestias ipsum maxime accusantium neque maiores quae repellat est, voluptatum quis cum nulla minima iste quasi rerum quas soluta, nesciunt laborum!</textarea>
+                <div class="col-5 col-md-12 col-sm-12">
+                    <!-- CUSTOMERS CHART -->
+                    <div class="sponsors-info">
+                        <div class="box f-height">
+                            <div class="box-header">
+                                Sponsors
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="gallery-item shoe">
+                                        <div class="gallery-item-inner">
+                                            <img src="{% static 'login/img/cn1.jpg' %}" alt="sponsor1">
+                                        </div>
+                                    </div>
+                                    <div class="gallery-item headphone">
+                                        <div class="gallery-item-inner">
+                                            <img src="{% static 'login/img/cn1.jpg' %}"  alt="sponsor2">
+                                        </div>
+                                    </div>
+                                    <div class="gallery-item camera">
+                                        <div class="gallery-item-inner">
+                                            <img src="{% static 'login/img/cp2.jpg' %}" alt="sponsor3">
+                                        </div>
+                                    </div>
+                                    <div class="gallery-item camera">
+                                        <div class="gallery-item-inner">
+                                            <img src="{% static 'login/img/cp2.jpg' %}" alt="sponsor3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="container-fluid d-flex my-auto">
-                    <div class="card my-3" id="sponser">
-                        <div class="card-header p-1  text-center">
-                            <b>Sponsors</b>
-                        </div>
-                        <div class="card-body">
-                        </div>
-                    </div>
+                    <!-- END CUSTOMERS CHART -->
                 </div>
             </div>
         </div>
-        <div class="footer">
-			<div class="middleieee">&copy; PICT IEEE Student Branch</div>
-		  </div>
-		</div>
     </div>
+    <!-- END MAIN CONTENT -->
+
+    <div class="overlay"></div>
+
+    <div class="footer">
+        <!-- <div class="leftieee">&copy; PICT IEEE Student Branch</div> -->
+        <div class="middleieee">&copy; PICT IEEE Student Branch</div>
+      </div>
+      <!-- end of footer -->
+
+    <!-- SCRIPT -->
+    <!-- APEX CHART -->
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
     <script>
-        var ctrlKeyDown = false;
+        document.querySelectorAll('.sidebar-submenu').forEach(e => {
+    e.querySelector('.sidebar-menu-dropdown').onclick = (event) => {
+        event.preventDefault()
+        e.querySelector('.sidebar-menu-dropdown .dropdown-icon').classList.toggle('active')
 
-            $(document).ready(function(){    
-                $(document).on("keydown", keydown);
-                $(document).on("keyup", keyup);
-            });
+        let dropdown_content = e.querySelector('.sidebar-menu-dropdown-content')
+        let dropdown_content_lis = dropdown_content.querySelectorAll('li')
 
-            function keydown(e) { 
+        let active_height = dropdown_content_lis[0].clientHeight * dropdown_content_lis.length
 
-                if ((e.which || e.keyCode) == 116 || ((e.which || e.keyCode) == 82 && ctrlKeyDown)) {
-                    // Pressing F5 or Ctrl+R
-                    e.preventDefault();
-                } else if ((e.which || e.keyCode) == 17) {
-                    // Pressing  only Ctrl
-                    ctrlKeyDown = true;
-                }
-            };
+        dropdown_content.classList.toggle('active')
 
-            function keyup(e){
-                // Key up Ctrl
-                if ((e.which || e.keyCode) == 17) 
-                    ctrlKeyDown = false;
-            };
+        dropdown_content.style.height = dropdown_content.classList.contains('active') ? active_height + 'px' : '0'
+    }
+})
+
+let corr_ques = parseInt("{{profile.correct_ques}}");
+let wrong_ques = parseInt("{{profile.number_of_submits}}") - corr_ques;
+
+console.log(corr_ques,"hdsgfshghd")
+console.log(wrong_ques,"wrong")
+
+let category_options = {
+    series: [corr_ques, wrong_ques],
+    labels: ['Correct answers', 'Wrong answers'],
+    chart: {
+        type: 'donut',
+    },
+    colors: ['#6ab04c', '#d35400']
+}
+
+let category_chart = new ApexCharts(document.querySelector("#category-chart"), category_options)
+category_chart.render()
+
+let customer_options = {
+    series: [{
+        name: "Store Customers",
+        data: [40, 70, 20, 90, 36, 80, 30, 91, 60]
+    },{
+        name: "Online Customers",
+        data: [20, 30, 10, 20, 16, 40, 20, 51, 10]
+    }],
+    colors: ['#6ab04c', '#2980b9'],
+    chart: {
+        height: 350,
+        type: 'line',
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        curve: 'smooth'
+    },
+    xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+    },
+    legend: {
+        position: 'top'
+    }
+}
+
+let customer_chart = new ApexCharts(document.querySelector("#customer-chart"), customer_options)
+customer_chart.render()
+
+setDarkChart = (dark) => {
+    let theme = {
+        theme: {
+            mode: 'dark'
+        }
+    }
+
+    customer_chart.updateOptions(theme)
+    category_chart.updateOptions(theme)
+} 
+
+// DARK MODE TOGGLE
+let darkmode_toggle = document.querySelector('#darkmode-toggle')
+
+darkmode_toggle.onclick = (e) => {
+    e.preventDefault()
+    document.querySelector('body').classList.toggle('dark')
+    darkmode_toggle.querySelector('.darkmode-switch').classList.toggle('active')
+    setDarkChart(document.querySelector('body').classList.contains('dark'))
+}
+
+let overlay = document.querySelector('.overlay')
+let sidebar = document.querySelector('.sidebar')
+
+document.querySelector('#mobile-toggle').onclick = () => {
+    sidebar.classList.toggle('active')
+    overlay.classList.toggle('active')
+}
+
+document.querySelector('#sidebar-close').onclick = () => {
+    sidebar.classList.toggle('active')
+    overlay.classList.toggle('active')
+}
     </script>
 
-    <script>
-         let number = document.getElementById("number");
-         let acc = "{{accu}}"
-         let accu = parseInt(acc)
-         console.log(accu) 
-         let counter = 0;
-         setInterval(() => {
-             if(counter == accu)
-             {
-                 clearInterval();
-             }
-             else{
-                counter += 1;
-                number.innerHTML = "Accuracy : " + counter + "%"
-             }
-             
-         }, 50);
-    </script> 
+
 </body>
+
+<!-- APP JS -->
+<!-- <script  src="{% static 'login/css/result.js' %}"></script> -->
+<!-- <script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/scripts.js"></script>
+<script src="./js/navbar.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
 </html>

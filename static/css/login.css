@@ -7,11 +7,11 @@
 
 }
 @font-face {
-font-family: solthin;
-src: url(https://gist.githubusercontent.com/devrajshetake/655a653a868cc75823f3d43d59915c36/raw/a34f1ac7df74ae7b62ac1a1720649596549a9036/solthinregular.ttf);
+font-family: 'solthin';
+src: local('solthin') url('../fonts/solthinregular.ttf') format("truetype");
 }
 .clash-text{
-  font-family: "SolThin",sans-serif !important;
+  font-family: 'solthin', sans-serif !important;
   font-weight: 500!important;
 }
 .wrapper{
@@ -425,7 +425,7 @@ transition: 0.25s ease;
 box-shadow: inset 0 0 0 0.125em #38d1ff;
 }
 .clash-text::first-line{
-font-size: 1rem!important;
+  font-size: 3rem!important;
 }
 .footer {
 background: linear-gradient(45deg, #19638b, #011722);
