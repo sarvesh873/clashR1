@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        Clash | Result
+        Clash
     </title>
     <!-- GOOGLE FONT -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -18,33 +18,28 @@
     <!-- APP CSS -->
     <link rel="stylesheet"  href="{% static 'result/css/grid.css' %}" >
     <link rel="stylesheet"  href="{% static 'result/css/app.css' %}" >
+    <link rel="stylesheet" href="{% static 'qpage/css/style.css' %}">
     <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
 </head>
 
 <body>
     <section class="navigation">
-		<div class="nav-container">
-		  <div class="brand">
-			  <!--logo of both clash and pisb will be added later in the navbar-->
-			<a href="{% url 'login' %}">Clash</a>
-			<a href="#">PISB</a>
-		  </div>
-		  <nav>
-			<div class="nav-mobile"><a id="navbar-toggle" href="#"><span></span></a></div>
-			<ul class="nav-list">
-			  <!-- <li>
-				<a href="#">Instructions</a>
-			  </li>
-			  <li>
-				<a href="#">Leaderboard</a>
-			  </li> -->
-			  <li>
-				<a href="#!">Logout</a>
-			  </li>
-			</ul>
-		  </nav>
-		</div>
-	</section>
+        <div class="nav-container">
+          <div class="brand">
+            <img src="{% static 'login/img/clashwhite.png' %}" style="width: 100px; height: 35px;">
+          </div>
+          <nav>
+            <div class="nav-mobile">
+              <a id="navbar-toggle" href="#"><span></span></a>
+            </div>
+            <ul class="nav-list">
+              <li>
+                <img src="{% static 'login/img/pisblogo.png' %}" style="width: 120px; height: 35px; margin-left: 20px; margin-top: 5px; margin-right: 20px;">
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </section>
     <!-- MAIN CONTENT -->
     <div class="main">
         <div class="main-content">
@@ -125,9 +120,9 @@
                     <div class="clash-info">
                         <div class="box f-height">
                             <div class="box-header">
-                                Clash
+                                Reverse Coding
                             </div><br>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae qui consequuntur aperiam architecto fuga, cumque sunt earum autem placeat nemo voluptatum reiciendis, numquam quas iste natus dolor voluptatibus aut perferendis.<br><br> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum quas voluptatibus temporibus reiciendis, doloremque earum nisi odit voluptas impedit officia enim? Pariatur itaque quia ad sit soluta amet at ducimus!
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae qui consequuntur aperiam architecto fuga, cumque sunt earum autem placeat nemo voluptatum reiciendis, numquam quas iste natus dolor voluptatibus aut perferendis.<br><br> Lorem ipsum, dolor sit amet consectetur
                         </div>
                     </div>
                     
