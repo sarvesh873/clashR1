@@ -6,7 +6,7 @@ import json
 # Create your models here.
 
 class Question(models.Model):
-    question = models.CharField(max_length=500)
+    question = models.TextField(max_length=500)
     option_1 = models.CharField(max_length=500)
     option_2 = models.CharField(max_length=500)
     option_3 = models.CharField(max_length=500)

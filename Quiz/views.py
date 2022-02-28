@@ -413,7 +413,7 @@ def result(request):
         except:
             accu = 0
         context = {'profile': profile , 'user':request.user, 'accu':accu}
-        # auth.logout(request)
+        auth.logout(request)
         return  render(request,'Quiz/result.html',context)
     except:
         return redirect('login')
