@@ -376,7 +376,7 @@ def red_zone(request):
     
     
     profile.save()
-    messages.error(request,"Red Zone Started!!!!")
+    messages.error(request,"Combat Zone Activated!!!!")
     return redirect('Quiz')
 
 # End Red Zone
@@ -389,7 +389,7 @@ def endRZ(request):
         profile.time_rz_counter = 0
         profile.time_speed = 1000
         profile.save()
-        messages.info(request,"Red Zone Ended!!!!")
+        messages.info(request,"Combat Zone Ended!!!!")
     return redirect('Quiz')
 
 # Save timer using Ajax
@@ -407,12 +407,13 @@ def result(request):
     try:
         
         profile = extendeduser.objects.get(user=request.user)
+
         try:
             accu = round(profile.correct_ques / profile.number_of_submits * 100,2)
         except:
             accu = 0
         context = {'profile': profile , 'user':request.user, 'accu':accu}
-        auth.logout(request)
+        # auth.logout(request)
         return  render(request,'Quiz/result.html',context)
     except:
         return redirect('login')
