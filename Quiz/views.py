@@ -156,6 +156,7 @@ def quiz(request):
     return render(request,'Quiz/Qpage.html', context)
 
 
+# End Quiz on time up and logout
 def endquiz(request):
     user = request.user
     if request.method == 'POST':
@@ -216,6 +217,7 @@ def login(request):
     return render(request, 'Quiz/login.html')
 
 
+#Register View
 def register(request):
         if request.method == "POST":
 
@@ -268,21 +270,16 @@ def logout(request):
     auth.logout(request)
     return redirect('login')
 
+
+# Instruction Page
 @login_required(login_url='login')
 def startQuiz(request):
     datas = extendeduser.objects.filter(user = request.user)
     return render(request,'Quiz/startQuiz.html',{'data':datas})
 
 
-# Utility functions
 
-def list_all_questions():
-    all_ques = []
-    for que in Question.objects.all():
-        all_ques.append(que)
-    return all_ques
-
-
+# Handle Lifeline 1
 def lifeline(request):
     profile = extendeduser.objects.get(user=request.user)
     try:
@@ -302,7 +299,7 @@ def lifeline(request):
                 messages.error(request, "You can use 5 credits at max!!")
                 return redirect("Quiz")
             messages.success(request, f"Lifeline activated for next {credits_used} questions")
-            create_lifeline_model(request.user)
+            createLifelineModel(request.user)
             lifeline_data = UserLifelineData.objects.get(user = request.user)
             lifeline_data.lifeline1_credits = credits_used
             lifeline_data.lifeline_in_use = 1
@@ -315,8 +312,9 @@ def lifeline(request):
             profile.save()
 
         return redirect("Quiz")
-            
-def create_lifeline_model(user1):
+
+# To create UserLifelineData Model            
+def createLifelineModel(user1):
     try:
         lifeline = UserLifelineData.objects.get(user = user1)
 
@@ -325,10 +323,10 @@ def create_lifeline_model(user1):
         
         lifeline.save()
 
+# Handle Lifeline1 
 def useLifeline(user1, selected_option, que):
     lifeline = UserLifelineData.objects.get(user = user1)
     profile = extendeduser.objects.get(user = user1)
-    # llSkipped = False
 
     if lifeline.lifeline_in_use == 1 and lifeline.lifeline1_credits:
         profile.marking_positive += 1
@@ -352,17 +350,11 @@ def useLifeline(user1, selected_option, que):
     if(lifeline.lifeline_in_use is None):
         profile.marking_positive = 4
         profile.marking_negative = -2
-        # if profile.lifeline_skipped:
-        #     profile.lifeline_skipped = False
-       
-        #     llSkipped = True
 
         profile.save()
-        
-    # if llSkipped:
-    #     return redirect('red_zone')
     return
-    
+
+# Handle Redzone Activation    
 def red_zone(request):
     profile = extendeduser.objects.get(user = request.user)
     try:
@@ -387,6 +379,7 @@ def red_zone(request):
     messages.error(request,"Red Zone Started!!!!")
     return redirect('Quiz')
 
+# End Red Zone
 def endRZ(request):
     if request.method == 'POST':
         counter = request.POST.get('endRZ')
@@ -399,6 +392,7 @@ def endRZ(request):
         messages.info(request,"Red Zone Ended!!!!")
     return redirect('Quiz')
 
+# Save timer using Ajax
 def saveTimer(request):
     if request.method == 'POST':
         profile = extendeduser.objects.get(user = request.user)
@@ -408,13 +402,11 @@ def saveTimer(request):
  
 
     
-  
+# Result Page View  
 def result(request):
     try:
         
         profile = extendeduser.objects.get(user=request.user)
-        # user = User.objects.get(username = 'rc601')
-        # profile = extendeduser.objects.get(user=user)
         try:
             accu = round(profile.correct_ques / profile.number_of_submits * 100,2)
         except:
@@ -425,36 +417,19 @@ def result(request):
     except:
         return redirect('login')
     
-  
+
+#Leaderboard View  
 def leaderboard(request):
-        # try:
-        #     extended_user = extendeduser.objects.get(user = request.user)
-        #     level = extended_user.level
-        # except:
-        #     level = "1"
-        # profiles = extendeduser.objects.filter(level = level)
         profiles = extendeduser.objects.all()
         profiles = extendeduser.objects.order_by('-final_score','time_counter')
         context = {'profile': profiles , 'user':request.user}
         return  render(request,'Quiz/leaderboard.html',context)
     
 
-def canUseLifeline(user1):
-    profile = extendeduser.objects.get(user = user1)
-    try:
-        accu = round(profile.correct_ques / profile.number_of_submits * 100,2)
-    except:
-        accu = 0
-    try:
-        lifeline = UserLifelineData.objects.get(user = user1)
-        inuse =lifeline.lifeline_in_use
-    except:
-        inuse = None
-    if profile.num_of_lifeline < 2 and inuse == None and accu >=30 and not profile.red_zone_active and profile.final_score >= 5:
-        return True
-    return False
 
 
+
+# Allow user to login again
 def emerglogin(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -482,25 +457,20 @@ def emerglogin(request):
             return render(request, 'Quiz/emerglogin.html')
     return render(request, 'Quiz/emerglogin.html')
 
-def rank(user):
-    exuser  = extendeduser.objects.get(user = user)
-    all_users = extendeduser.objects.filter(level = exuser.level).order_by('final_score','-time_counter').reverse()
-    for i in range(len(all_users)):
-        if all_users[i].user == user:
-            return i+1
-    return 0
 
 
+
+#Handle Tab Switch
 from django.http import JsonResponse
 def switchtab(request):
     profile = extendeduser.objects.get(user=request.user)
     profile.tab -= 1
     profile.save()
-    # messages.error(request, "You at max!!")
     context = {'changed': int(profile.tab)}
     return JsonResponse(context)
 
 
+# Resolve Lifeline Redzone Clash
 def skipped_red_zone(request):
     profile = extendeduser.objects.get(user = request.user)
     
@@ -511,5 +481,38 @@ def skipped_red_zone(request):
     profile.save()
     messages.error(request,"Red Zone Started!!!!")
     return redirect('Quiz')
+
+
+# -------------------Utility functions--------------------
+
+def list_all_questions():
+    all_ques = []
+    for que in Question.objects.all():
+        all_ques.append(que)
+    return all_ques
+
+def rank(user):
+    exuser  = extendeduser.objects.get(user = user)
+    all_users = extendeduser.objects.filter(level = exuser.level).order_by('final_score','-time_counter').reverse()
+    for i in range(len(all_users)):
+        if all_users[i].user == user:
+            return i+1
+    return 0
+
+#Check if user can use lifeline 1
+def canUseLifeline(user1):
+    profile = extendeduser.objects.get(user = user1)
+    try:
+        accu = round(profile.correct_ques / profile.number_of_submits * 100,2)
+    except:
+        accu = 0
+    try:
+        lifeline = UserLifelineData.objects.get(user = user1)
+        inuse =lifeline.lifeline_in_use
+    except:
+        inuse = None
+    if profile.num_of_lifeline < 2 and inuse == None and accu >=30 and not profile.red_zone_active and profile.final_score >= 5:
+        return True
+    return False
 
 
