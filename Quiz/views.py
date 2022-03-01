@@ -412,6 +412,7 @@ def saveTimer(request):
 # Result Page View  
     
 def result(request):
+
     try:
         
         profile = extendeduser.objects.get(user=request.user)
