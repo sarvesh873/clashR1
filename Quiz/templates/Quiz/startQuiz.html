@@ -29,21 +29,14 @@
   <body>
 
     <section class="navigation" style="width: auto;">
-      <div class="nav-container">
-        <div class="brand">
-          <img src="{% static 'login/img/clashwhite.png' %}" style="width: 100px; height: 35px;">
-        </div>
-        <nav>
-          <div class="nav-mobile">
-            <a id="navbar-toggle" href="#"><span></span></a>
-          </div>
-          <ul class="nav-list">
-            <li>
-              <img src="{% static 'login/img/pisblogo.png' %}" style="width: 120px; height: 35px; margin-left: 20px; margin-top: 5px; margin-right: 20px;">
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <img src="{% static 'login/img/clashwhite.png' %}" style="width: 100px; height: 35px; float: left; margin-top: 10px; margin-left: 5px">
+      <nav>
+        <ul class="nav-list">
+          <li>
+            <img src="{% static 'login/img/pisblogo.png' %}" style="width: 120px; height: 35px; margin-left: 20px; margin-top: 10px; margin-right: 20px; display: flex; justify-content: space-between;">
+          </li>
+        </ul>
+      </nav>
     </section>
 
 
@@ -82,7 +75,7 @@
                  class="fa-solid fa-1 fa-2x"
               ></i
             ></span>
-            <h2 class="inner " >lifeline1</h2>
+            <h2 class="inner " >Nitro-Boost</h2>
           </li>
           <li class="st st3">
             <span
@@ -98,7 +91,7 @@
               class="fa-solid fa-2 fa-2x"
             ></i
           ></span>
-            <h2 class="inner ">lifeline2</h2>
+            <h2 class="inner ">Combat Zone</h2>
           </li>
           <li class="st st4" id="nik">
             <a href="{% url 'Quiz' %}"
@@ -167,39 +160,24 @@
           style="border-radius: 40px;"
         >
 
-          <h1 class="nik"  >lifeline 1</h1>
+          <h1 class="nik"  >Nitro-Boost</h1>
           <ol class="font">
             <li>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Numquam, laboriosam accusamus cupiditate distinctio quos inventore et 
-               debitis pariatur velit fugit 
-              maiores labore omnis corporis explicabo voluptatum placeat reprehenderit adipisci quasi?
+              Enter the score you want to be spent on the lifeline.
             </li>
             <br>
             <li>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Numquam, laboriosam accusamus cupiditate distinctio quos inventore et 
-               debitis pariatur velit fugit 
-              maiores labore omnis corporis explicabo voluptatum placeat reprehenderit adipisci quasi?
+              The maximum score you can spend is five.
             </li>
             <br>
             <li>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Numquam, laboriosam accusamus cupiditate distinctio quos inventore et 
-               debitis pariatur velit fugit 
-              maiores labore omnis corporis explicabo voluptatum placeat reprehenderit adipisci quasi?
+              When this lifeline has been activated the scoring scheme for the next N questions is changed. Where N is the score spent.
             </li><br>
             <li>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Numquam, laboriosam accusamus cupiditate distinctio quos inventore et 
-               debitis pariatur velit fugit 
-              maiores labore omnis corporis explicabo voluptatum placeat reprehenderit adipisci quasi?
+              For example, the participant activated the lifeline on question number six and the score spent is 3. The scoring scheme for the current question becomes +4/-2. The next question has a scoring scheme of +5/-3. Then it becomes +6/-4.
             </li><br>
             <li>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Numquam, laboriosam accusamus cupiditate distinctio quos inventore et 
-               debitis pariatur velit fugit 
-              maiores labore omnis corporis explicabo voluptatum placeat reprehenderit adipisci quasi?
+              This lifeline can only be activated if the participant has accumulated a score of at least 5 and has an accuracy of at least 30%.
             </li><br>
           </ol>
         </section>
@@ -209,33 +187,24 @@
           
         >
           
-          <h1 class="nik" >lifeline 2</h1>
+          <h1 class="nik" >Combat Zone</h1>
 
           <ol class="font">
             <li>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Numquam, laboriosam accusamus cupiditate distinctio quos inventore et 
-               debitis pariatur velit fugit 
-              maiores labore omnis corporis explicabo voluptatum placeat reprehenderit adipisci quasi?
+              The combat zone can randomly occur two times during the 28 minutes of the test.
             </li>
             <br>
             <li>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Numquam, laboriosam accusamus cupiditate distinctio quos inventore et 
-               debitis pariatur velit fugit 
-              maiores labore omnis corporis explicabo voluptatum placeat reprehenderit adipisci quasi?
+              When the combat zone is active, each correct answer will slow down the timer and wrong answers speed up the timer.
             </li><br>
             <li>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Numquam, laboriosam accusamus cupiditate distinctio quos inventore et 
-               debitis pariatur velit fugit 
-              maiores labore omnis corporis explicabo voluptatum placeat reprehenderit adipisci quasi?
+              There will be three types of timer speeds during this zone, Normal, SlowMotion, and SuperSonic. 
             </li><br>
             <li>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Numquam, laboriosam accusamus cupiditate distinctio quos inventore et 
-               debitis pariatur velit fugit 
-              maiores labore omnis corporis explicabo voluptatum placeat reprehenderit adipisci quasi?
+              The red background around the timer will indicate that the timer has sped up and a green background signifies that the timer has slowed down.
+            </li><br>
+            <li>
+              The three types of timers will toggle according to the answers given by the participant. For example, if the timer was sped up during the previous question, but for the current question the answer chosen was correct then the timer will return back to the normal rate.
             </li><br>
           </ol>
         </section>

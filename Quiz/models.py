@@ -76,7 +76,7 @@ class extendeduser(models.Model):
     redzone_skipped = models.BooleanField(default=False)
     login_time = models.DateTimeField(null=True)
     popRZModal = models.BooleanField(default=False)
-    popLifelineModal = models.BooleanField(default=False)
+    isEmerLogged = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.username}'

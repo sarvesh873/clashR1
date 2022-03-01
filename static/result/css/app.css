@@ -829,4 +829,26 @@ img{
     }
   }
 
+  
+
+  .chart-content {
+    padding: 5px;
+    width: auto;
+    margin: 20px auto;
+  }
+  .chart-content header {
+    text-align: center;
+  }
+  .chart-legend {
+    font-size: 0.8em;
+  }
+  .chart-legend li {
+    list-style: none;
+  }
+  .chart-legend li span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 5px;
+  }
 

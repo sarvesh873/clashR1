@@ -93,7 +93,7 @@ def quiz(request):
     utc=pytz.UTC
     
     if datetime.datetime.now().replace(tzinfo=utc) > (profile.login_time.replace(tzinfo=utc) + datetime.timedelta(minutes=60)):
-        messages.error("Your Slot has ended!")
+        messages.error(request,"Your Slot has ended!")
         return redirect('result')
         
     

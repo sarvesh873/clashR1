@@ -11,11 +11,17 @@
     }
     let scounter = parseInt(strcounter);
     let tzcounter = parseInt(strtzcounter);
-    if (sessionStorage.counter && !isNaN(sessionStorage.counter)){
+    // if (sessionStorage.counter && !isNaN(sessionStorage.counter)){
+    //     a = 1;
+    // }
+    // else if(isNaN(sessionStorage.counter)){
+    //   sessionStorage.counter = 0;
+    // }
+    // else{
+    // sessionStorage.counter = scounter;}
+
+    if (sessionStorage.counter >= 0){
         a = 1;
-    }
-    else if(isNaN(sessionStorage.counter)){
-      sessionStorage.counter = 0;
     }
     else{
     sessionStorage.counter = scounter;}

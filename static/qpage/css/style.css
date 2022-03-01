@@ -509,7 +509,17 @@ transform:rotate(270deg);
   color: #ec1313;
   transition: background 0.4s ease-in-out;
   text-decoration: none !important;
+  border: 2px solid #ec1313;
 }
+
+.btn2:focus{
+  border: 2px solid #ec1313;
+}
+.btn2:visited{
+  border: 2px solid #ec1313;
+}
+
+
 
 .btn3 {
   margin-top: 5px;
@@ -1894,6 +1904,14 @@ and (max-device-width: 1024px) {
   .col-md-3{
     margin-bottom: 20px;
   }
+  .btn2{
+    height: 70px!important;
+    width: 130px!important;
+  }
+  .btn1{
+    height: 80px!important;
+    width: 130px!important;
+  }
 }
 
 @media (min-device-width: 768px) and (max-device-width: 1253px){
@@ -1932,6 +1950,14 @@ and (max-device-width: 1024px) {
   .btn-outline-light1{
     margin-bottom: 50px;
   }
+  .btn10{
+    padding-top: 18px;
+    font-size: 10px;
+  }
+  .btn11{
+    padding-top: 15px;
+    font-size: 11px;
+  }
 }
 
 @media (min-device-width: 480px) and (max-device-width: 768px){
@@ -1960,7 +1986,7 @@ and (max-device-width: 1024px) {
     padding-top: 15px;
   }
   .btn8{
-    font-size: 13px;
+    font-size: 11px;
     padding-top: 7px;
   }
   .btn4{
@@ -2018,9 +2044,11 @@ and (-webkit-min-device-pixel-ratio: 2) {
   }
   .btn2{
     font-size: 15px;
+    width: 250px;
   }
   .btn1{
-    font-size: 15px;
+    font-size: 15px!important;
+    width: 250px;
   }
 }
  
@@ -2032,6 +2060,9 @@ and (-webkit-min-device-pixel-ratio: 2) {
   }
   .col-md-3{
     margin-bottom: 20px;
+  }
+  .btn8{
+    font-size: 13px;
   }
 }
  

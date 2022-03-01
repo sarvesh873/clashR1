@@ -25,7 +25,7 @@
     ></script>
 
   </head>
-  <body ondrag="select()"  onmousedown="return false" onselectstart="return false">
+  <body >
     <section class="navigation">
       <div class="nav-container">
         <div class="brand">
@@ -100,7 +100,22 @@
         </div>
         <div class="col-md-6">
           {% for message in messages %}
-          <div id="div1"
+          <div class="modal fade" id="alertbox" tabindex="-1" role="dialog" aria-labelledby="alertboxLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="alertboxLabel">Alert</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  {{message}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div id="div1"
             class="alert alert-light alert-dismissable"
             style="margin-top: 10px"
           >
@@ -117,11 +132,17 @@
 
               <span class="blinky feat-blinky"></span>
             </h1>
-          </div>
+          </div> -->
 
-          <script>
-            modalrz = document.getElementById("modal-container-545178");
-            modalrz.style.display = "block";
+          <script type="text/javascript">
+            window.addEventListener("load", function(){
+              setTimeout(
+                function open(event){
+                  $("#alertbox").modal({show: true});
+                }, 
+                100
+              )
+            })
           </script>
 
           {% endfor %}
@@ -137,6 +158,7 @@
                     id="exampleFormControlTextarea1"
                     rows="3"
                     readonly
+                    ondrag="select()"  onmousedown="return false" onselectstart="return false"   
                   >
                   
  {{question.question}}
@@ -252,9 +274,14 @@
                   </div>
                   <div class="modal-body">
                     <h5>Please note: </h5>
-                    1) Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam pariatur maxime itaque consequatur modi, quae provident non temporibus assumenda sunt delectus facilis dolorum nostrum quidem doloremque corporis voluptatum laudantium ratione?<br>
-                    2)Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam pariatur maxime itaque consequatur modi, quae provident non temporibus assumenda sunt delectus facilis dolorum nostrum quidem doloremque corporis voluptatum laudantium ratione?<br>
-                    3)Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam pariatur maxime itaque consequatur modi, quae provident non temporibus assumenda sunt delectus facilis dolorum nostrum quidem doloremque corporis voluptatum laudantium ratione?
+                    1. The duration of this round is 28 minutes. No extra time will be provided.<br>
+                    2. The number of questions will be unlimited. A participant can solve as many questions as they want during the allotted time.<br>
+                    3. The marking scheme is +4/-2. However, if the participant has picked the incorrect answer for the previous question then the marking scheme for the next question becomes +2/-1.<br>
+                    4. The participants will be provided with two lifelines.<br>
+                    5. Tab switching is prohibited for the duration of the test.<br>
+                    6. In case of technical emergencies please contact the organizers immediately.<br>
+
+
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -278,7 +305,7 @@
                       <thead>
                         <tr>
                           <th scope="col">Rank</th>
-                          <th scope="col">USername</th>
+                          <th scope="col">Username</th>
                           <th scope="col">Firstname</th>
                           <th scope="col">Score</th>
                         </tr>
@@ -329,7 +356,7 @@
               <span></span>
               <span></span>
               <span></span>
-              Activate lifeline 1
+              Nitro Boost
               </button
             ><br />
             <div
@@ -360,18 +387,20 @@
                           min="1"
                           max="5" required
                         />
+                        <br>
                         <!-- <button class="btn-score-input">Confirm</button> -->
-                        <br />Note: <br />1) Score strictly more than 5 is
-                        acceptable.<br />2) Entered score will be used for
-                        lifeline 1.<br />3) If entered score is suppose, 'n'.
-                        Then the marking scheme will change for the next 'n'
-                        questions.
+                        1. Enter the score you want to be spent on the lifeline.
+                        <br>
+                        2. The maximum score you can spend is five.
+                        <br>
+                        3. When this lifeline has been activated the marking scheme for the next N questions is changed. Where N is the score spent.
+                        <br>
                       </p>
                     </div>
                     <hr class="seperator-line" />
                     <div class="modal-box-2">
                       <p>
-                        Marking scheme for the next 'n' questions is:<br />
+                        Marking scheme for the next 'N' questions is:<br />
                         1. +4/-2 for 1st question<br />
                         2. +5/-3 for 2nd question<br />
                         3. +6/-4 for 3rd question<br /><br />
@@ -434,15 +463,16 @@
                   </div>
                   <div class="modal-body">
                     <p>
-                      Timer will run at 1.5x if question is right else, at 1.75x
-                      if question is wrong!
-
-                      <br /><br />
-                      1) Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. Facilis, explicabo animi, suscipit quibusdam
-                      praesentium inventore<br />
-                      2) dolorum harum dicta consequatur, modi est ducimus aut
-                      cum magnam labore eligendi asperiores nostrum magni!
+                      1. The combat zone can randomly occur two times during the 28 minutes of the test.
+                      <br>
+                      2. When the combat zone is active, each correct answer will slow down the timer and wrong answers speed up the timer.
+                      <br>
+                      3. There will be three types of timer speeds during this zone, Normal, SlowMotion, and SuperSonic.
+                      <br>
+                      4. The red background around the timer will indicate that the timer has sped up and a green background signifies that the timer has slowed down.
+                      <br>
+                      5. The three types of timers will toggle according to the answers given by the participant. For example, if the timer was sped up during the previous question, but for the current question the answer chosen was correct then the timer will return back to the normal rate. 
+                      <br>
                     </p>
                   </div>
                   <div class="modal-footer">
