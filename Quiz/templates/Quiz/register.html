@@ -1,0 +1,139 @@
+{% extends 'Quiz/layout.html' %}
+{% block content %}
+
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+
+ 
+        {% if error %}
+        <h4>{{ error }}</h4>
+        {% endif %}
+    
+
+
+    <form method="POST">
+        {% csrf_token %}
+        
+
+        <h2>Sign Up</h2>
+        
+            
+        
+        <h3 class="p"> Username : <input type="text" name="username" , required></h3>
+        <h3 class="q"> Firstname : <input type="text" name="firstname" , required></h3>
+        <h3 class="r"> Lastname : <input type="text" name="lstname" , required></h3>
+        <h3 class="s">Email id:<input type="email" name="email" id="email" , required></h3>
+
+
+        <h3 class="x"> Enter a Phone Number : <input type="text" name="number" , required></h3>
+        <div class="y" >
+               <legend>
+                      <h3>Year:</h3>
+               </legend>
+              <ul>
+              <li>FE<input type="radio" name="year" id="FE" value="FE"></li>
+              <li>SE<input type="radio" name="year" id="SE" value="SE"></li>
+              <li>TE<input type="radio" name="year" id="TE" value="TE"></li>
+              <li>BE<input type="radio" name="year" id="BE" value="BE"></li>
+              <li>Others<input type="radio" name="year" id="Others" value="Others"></li>
+              </ul>
+        </div> 
+        
+        <h3 class="a">Enter Password:<input type="password" name="password1" id="password1" , required></h3>
+        <h3 class="b">Confirm Password:<input type="password" name="password2" id="password2" , required></h3>
+        
+        <button type="submit" class="c" name="submit" >Sign Up </button>
+    </form>
+     <div id="message">
+        <h3>Password must contain the following:</h3>
+        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+        <p id="number" class="invalid">A <b>number</b></p>
+        <p id="length" class="invalid">Minimum <b>10 characters</b></p>
+        <p id="splcharacter" class="invalid">A <b>special character</b></p>
+      </div>
+                      
+      <script>
+          var myInput = document.getElementById("password1");
+          var letter = document.getElementById("letter");
+          var capital = document.getElementById("capital");
+          var number = document.getElementById("number");
+          var length = document.getElementById("length");
+          var splcharacter = document.getElementById("splcharacter");
+          
+          // When the user clicks on the password field, show the message box
+          myInput.onfocus = function() {
+            document.getElementById("message").style.display = "block";
+          }
+          
+          // When the user clicks outside of the password field, hide the message box
+          myInput.onblur = function() {
+            document.getElementById("message").style.display = "none";
+          }
+          
+          // When the user starts to type something inside the password field
+          myInput.onkeyup = function() {
+            // Validate lowercase letters
+            var lowerCaseLetters = /[a-z]/g;
+            if(myInput.value.match(lowerCaseLetters)) {  
+              letter.classList.remove("invalid");
+              letter.classList.add("valid");
+            } else {
+              letter.classList.remove("valid");
+              letter.classList.add("invalid");
+            }
+            
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if(myInput.value.match(upperCaseLetters)) {  
+              capital.classList.remove("invalid");
+              capital.classList.add("valid");
+            } else {
+              capital.classList.remove("valid");
+              capital.classList.add("invalid");
+            }
+          
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if(myInput.value.match(numbers)) {  
+              number.classList.remove("invalid");
+              number.classList.add("valid");
+            } else {
+              number.classList.remove("valid");
+              number.classList.add("invalid");
+            }
+            // Validate spl characters
+            var splcharacters = /[()[\]{}|\\`~!@#$%^&*_\-+=;:\'",<>./?]/g;
+            if(myInput.value.match(splcharacters)) {  
+                splcharacter.classList.remove("invalid");
+                splcharacter.classList.add("valid");
+            } else {
+                splcharacter.classList.remove("valid");
+                splcharacter.classList.add("invalid");
+            }
+            
+            // Validate length
+            if(myInput.value.length > 10) {
+              length.classList.remove("invalid");
+              length.classList.add("valid");
+            } else {
+              length.classList.remove("valid");
+              length.classList.add("invalid");
+            }
+          }
+
+      </script>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+           <h2> have an account <a class="ml-2" href="{% url 'login' %}">login </a></h2>
+        </small>
+    </div>
+   
+
+{% endblock content %}

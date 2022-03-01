@@ -1,0 +1,608 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <title>Clash</title>
+    <!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
+  <!-- BS JavaScript -->
+    <script src="{% static 'qpage/js/jquery.min.js' %}"></script>
+    <script src="{% static 'qpage/js/bootstrap.min.js' %}"></script>
+    <meta
+      name="description"
+      content="Source code generated using layoutit.com"
+    />
+    <meta name="author" content="LayoutIt!" />
+
+    <link href="{% static 'qpage/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'qpage/css/style.css' %}" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+
+  </head>
+  <body >
+    <section class="navigation">
+      <div class="nav-container">
+        <div class="brand">
+          <img src="{% static 'login/img/clashwhite.png' %}" style="width: 100px; height: 35px;">
+        </div>
+        <nav>
+          <div class="nav-mobile">
+            <a id="navbar-toggle" href="#"><span></span></a>
+          </div>
+          <ul class="nav-list">
+            <li>
+              <button type="button"  class="btn btn-light" data-toggle="modal" data-target="#exampleModal" style="margin-top: 8px; font-style: monospace, 'Courier New', Courier;">
+                Logout
+              </button>
+              <img src="{% static 'login/img/pisblogo.png' %}" style="width: 120px; height: 35px; margin-left: 20px; margin-top: 5px; margin-right: 20px;">
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure that you want to logout?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <form action="{% url 'endquiz' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="end" value="submitted">
+                      <button type="submit" class="btn btn-danger" id="switched" onclick="clearCounter()">Logout</a>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+    <div class="container-fluid" style="margin-top: 2%">
+      <div class="row mt-3">
+        <div class="col-md-3">
+          <h5 class="btn7">
+            <div class="timer-number" id="timer">28 : 00</div>
+          </h5>
+
+          <br />
+          <div class="card">
+            <h5 class="btn3">Rank : {{rank}}</h5>
+            <h5 class="btn6">Score : {{score}}</h5>
+          </div>
+
+          <div class="card1">
+            <h5 class="btn8" style="margin-bottom: 25px">
+              Questions attempted : {{profile.number_of_submits}}
+            </h5>
+          </div>
+
+          <div class="card">
+            <h5 class="btn4">MARKING SCHEME</h5>
+
+            <div class="btn5">
+              <div class="first">+{{mark_pos}}</div>
+              <div class="second">{{mark_neg}}</div>
+            </div>
+          </div>
+          <br />
+        </div>
+        <div class="col-md-6">
+          {% for message in messages %}
+          <div class="modal fade" id="alertbox" tabindex="-1" role="dialog" aria-labelledby="alertboxLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="alertboxLabel">Alert</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  {{message}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div id="div1"
+            class="alert alert-light alert-dismissable"
+            style="margin-top: 10px"
+          >
+            <h1 class="bottom-feat-h1">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-hidden="true"
+              >
+                ×
+              </button>
+              {{message}}
+
+              <span class="blinky feat-blinky"></span>
+            </h1>
+          </div> -->
+
+          <script type="text/javascript">
+            window.addEventListener("load", function(){
+              setTimeout(
+                function open(event){
+                  $("#alertbox").modal({show: true});
+                }, 
+                100
+              )
+            })
+          </script>
+
+          {% endfor %}
+          <div class="question-area" style="margin-top: 10px">
+            <div class="question-area-text">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1"
+                  >Question No. {{q_no}}</label
+                >
+                <div class="mostly-customized-scrollbar">
+                  <textarea 
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    readonly
+                    ondrag="select()"  onmousedown="return false" onselectstart="return false"   
+                  >
+                  
+ {{question.question}}
+
+							</textarea
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <form action="{% url 'Quiz' %}" method="post" id="saveNnext">
+            {% csrf_token %}
+            <div class="row d-flex justify-content-around">
+              <div col-md-6>
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio1"
+                  autocomplete="off"
+                  value="1"
+                />
+                <label
+                  class="btn btn-outline-light"
+                  style="height: 40px; width: 320px"
+                  for="btnradio1"
+                  >{{question.option_1}}</label
+                >
+              </div>
+              <div col-md-6>
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio2"
+                  autocomplete="off"
+                  value="2"
+                />
+                <label
+                  class="btn btn-outline-light"
+                  style="height: 40px; width: 320px"
+                  for="btnradio2"
+                  >{{question.option_2}}</label
+                >
+              </div>
+            </div>
+            <div class="row d-flex justify-content-around">
+              <div col-md-6>
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio3"
+                  autocomplete="off"
+                  value="3"
+                />
+                <label
+                  class="btn btn-outline-light"
+                  style="height: 40px; width: 320px"
+                  for="btnradio3"
+                  >{{question.option_3}}</label
+                >
+              </div>
+              <div col-md-6>
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio4"
+                  autocomplete="off"
+                  value="4"
+                />
+                <label
+                  class="btn btn-outline-light"
+                  style="height: 40px; width: 320px"
+                  for="btnradio4"
+                  >{{question.option_4}}</label
+                >
+              </div>
+            </div>
+            <div class="btn-toolbar pagination-centered">
+              <div
+                class="btn-group flex-wrap"
+                role="group"
+                aria-label="Basic radio toggle button group"
+              >
+                <button
+                  class="btn btn-outline-light1"
+                  type="button"
+                  role="button"
+                  onclick="save_n_next()"
+                  id="lQues"
+                >
+                  Save and Next
+                </button>
+                
+              </div>
+            </div>
+
+            <input type="hidden" name="time_counter" id="counterHidden" />
+          </form>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <div class="modal fade" id="instructions-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Instructions</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h5>Please note: </h5>
+                    1. The duration of this round is 28 minutes. No extra time will be provided.<br>
+                    2. The number of questions will be unlimited. A participant can solve as many questions as they want during the allotted time.<br>
+                    3. The marking scheme is +4/-2. However, if the participant has picked the incorrect answer for the previous question then the marking scheme for the next question becomes +2/-1.<br>
+                    4. The participants will be provided with two lifelines.<br>
+                    5. Tab switching is prohibited for the duration of the test.<br>
+                    6. In case of technical emergencies please contact the organizers immediately.<br>
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h5 class="btn10" data-toggle="modal" data-target="#instructions-modal">Instructions</h5>
+
+            <div class="modal fade" id="leaderboard-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Standings | Leaderboard</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Rank</th>
+                          <th scope="col">Username</th>
+                          <th scope="col">Firstname</th>
+                          <th scope="col">Score</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for profil in profiles|slice:":10" %}
+                        <tr>
+                          <th scope="row">{{ forloop.counter }}</th>
+                          <td>{{profil.user.username}}</td>
+                          <td>{{profil.user.first_name}}</td>
+                          <td>{{profil.final_score}}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h5 class="btn11" data-toggle="modal" data-target="#leaderboard-modal">Leaderboard</h5>
+          </div>
+
+
+          <div class="card1">
+            <h5 class="btn8" style="margin-bottom: 25px">
+              Accuracy : {{accu}}%
+            </h5>
+          </div>
+
+          <div class="lifelines">
+            <h5 class="btn9">
+              <div class="timer-number">Lifelines</div>
+            </h5>
+            <br /><br />
+            <button
+              id="modal-744963"
+              href="#modal-container-744963"
+              role="button"
+              class="btn1"
+              data-toggle="modal"
+            > 
+              
+              <span class="lfl-1"></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Nitro Boost
+              </button
+            ><br />
+            <div
+              class="modal fade"
+              id="modal-container-744963"
+              role="dialog"
+              aria-labelledby="myModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Lifeline 1</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                      <span aria-hidden="true" style="color: white">×</span>
+                    </button>
+                  </div>
+                <form action="{% url 'lifeline' %}" method="POST">
+                    {% csrf_token %}  
+                  <div class="modal-body">
+                    <div class="modal-box-2">
+                      <p>
+                        Enter score :
+                        <input
+                          type="number"
+                          id="score-input"
+                          name="score-input"
+                          min="1"
+                          max="5" required
+                        />
+                        <br>
+                        <!-- <button class="btn-score-input">Confirm</button> -->
+                        1. Enter the score you want to be spent on the lifeline.
+                        <br>
+                        2. The maximum score you can spend is five.
+                        <br>
+                        3. When this lifeline has been activated the marking scheme for the next N questions is changed. Where N is the score spent.
+                        <br>
+                      </p>
+                    </div>
+                    <hr class="seperator-line" />
+                    <div class="modal-box-2">
+                      <p>
+                        Marking scheme for the next 'N' questions is:<br />
+                        1. +4/-2 for 1st question<br />
+                        2. +5/-3 for 2nd question<br />
+                        3. +6/-4 for 3rd question<br /><br />
+                        and so on...
+                      </p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="submit"
+                      id="lifelineBtn1"
+                      class="btn btn-success"
+                      style="color: white"
+                      disabled
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+               </form>
+              </div>
+            </div>
+
+            <button
+              id="modal-545178"
+              href="#modal-container-545178"
+              role="button"
+              class="btn2"
+              data-toggle="modal"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <p id="rzactivation"> Combat Zone</p>
+            </button>
+            <div
+              class="modal fade"
+              id="modal-container-545178"
+              role="dialog"
+              aria-labelledby="myModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">
+                      Change in timer speed!
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                      <span aria-hidden="true" style="color: rgb(255, 255, 255)">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>
+                      1. The combat zone can randomly occur two times during the 28 minutes of the test.
+                      <br>
+                      2. When the combat zone is active, each correct answer will slow down the timer and wrong answers speed up the timer.
+                      <br>
+                      3. There will be three types of timer speeds during this zone, Normal, SlowMotion, and SuperSonic.
+                      <br>
+                      4. The red background around the timer will indicate that the timer has sped up and a green background signifies that the timer has slowed down.
+                      <br>
+                      5. The three types of timers will toggle according to the answers given by the participant. For example, if the timer was sped up during the previous question, but for the current question the answer chosen was correct then the timer will return back to the normal rate. 
+                      <br>
+                    </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12"></div>
+      </div>
+      <!-- footer -->
+      <div class="footer">
+        <!-- <div class="leftieee">&copy; PICT IEEE Student Branch</div> -->
+        <div class="middleieee">&copy; PICT IEEE Student Branch</div>
+      </div>
+      <!-- end of footer -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
+    <script src="{% static 'qpage/js/jquery.min.js' %}"></script>
+    <script src="{% static 'qpage/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'qpage/js/scripts.js' %}"></script>
+    <script src="{% static 'qpage/js/navbar.js' %}"></script>
+
+
+    <!-- REDZONE STUFF -->
+    <form action="{% url 'red_zone' %}" method="post" id="RZForm">
+      {% csrf_token %}
+      <input type="hidden" value="" name="time_counter" id="time_counter_rz" />
+    </form>
+    <form action="{% url 'end-redzone' %}" method="post" id="endRZ">
+      {% csrf_token %}
+      <input type="hidden" name="endRZ" id="endRZCounter" value="0" />
+    </form>
+
+    <form action="{% url 'endquiz' %}" method="post" id="endQuizForm">
+      {% csrf_token %}
+      <input type="hidden" name="end" value="timeUp" />
+    </form>
+
+    {% include 'Quiz/qpageJS.html' %}
+
+    <script>
+      function save_n_next() {
+        document.getElementById("counterHidden").value = sessionStorage.counter;
+        console.log(document.getElementById("counterHidden").value);
+        document.getElementById("saveNnext").submit();
+      }
+    </script>
+
+    {% if canUseLifeline %}
+    <script>
+      function enableBtn() {
+        document.getElementById("lifelineBtn1").disabled = false;
+      }
+      enableBtn();
+    </script>
+  {% endif %}
+
+  {% if canUseLifeline %}
+  <script>
+    function enableBtn() {
+      document.getElementById("modal-744963").disabled = false;
+    }
+    enableBtn();
+  </script>
+{% endif %}
+
+  <script>
+  
+      $(window).blur(function () {
+        $.ajax({
+          method: "GET",
+          url:  "{% url 'switchtab' %}",
+          dataType: "json",
+          context: {},
+          success: function (context) {
+            // $("#div1");
+            alert(
+              `You have shifted the tab warnings remaining: ${context.changed}`
+            );
+            if (context.changed <= 0) {
+              logoutbutton = document.getElementById("switched");
+              logoutbutton.onclick = document.getElementById("switched").click();
+            }
+          },
+        });
+      });
+  </script>
+  {% if profile.time_speed == 750 %}
+  <style>
+    .rztimer{
+      background-color: rgb(235, 77, 77);
+    }
+  </style>
+    <script>
+      timer_field = document.getElementById("timer");
+      timer_field.classList.add("rztimer");
+      console.log("greehufygn")
+    </script>
+
+  {% elif profile.time_speed == 2000 %}
+  <style>
+    .rztimer{
+      background-color: rgb(101, 214, 101);
+    }
+  </style>
+    <script>
+      timer_field = document.getElementById("timer");
+      timer_field.classList.add("rztimer");
+      console.log("green")
+    </script>
+  {% endif %}
+  <script>
+    $(document).ready(function() {
+        $('body').bind('cut copy', function(e) {
+            e.preventDefault();
+          });
+      });
+  </script>
+  </body>
+</html>

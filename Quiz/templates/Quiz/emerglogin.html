@@ -1,0 +1,17 @@
+{% extends 'Quiz/layout.html' %}
+{% block content %}
+
+<h1>Emergency login </h1>
+<form method="POST" action="{%url 'emerglogin'%}">
+    {% csrf_token %}
+    
+    <h3 class="p"> Username : <input type="text" name="username" , required></h3><br>
+    <h3 class="p"> User Password: - <input type="password" name="password" id="password" , required></h3><br>
+    <h3 class="p"> Admin Username : - <input type="text" name="admin_username" id="admin_username" , required></h3><br>
+    <h3 class="p"> Admin Password: - <input type="password" name="admin_password" id="admin_password" , required></h3><br>
+    
+    <input type="submit" value="Submit">
+    </form>
+
+
+{% endblock content %}

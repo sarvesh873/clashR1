@@ -1,0 +1,49 @@
+{% extends 'Quiz/layout.html' %}
+{% block content %}
+
+<h1>eelo</h1>
+<table class="rwd-table">
+    <tbody>
+        <tr>
+            <th>sr no.</th>
+            <th>Username</th>
+            <th>firstname</th>
+
+            <th>year</th>
+            <th>fianl_score</th>
+            <th>timer</th>
+
+            
+        </tr>
+        
+            {% for profil in profile %}
+            
+            <tr>
+                <td data-th="sr no.">
+                    <h6>{{ forloop.counter }}</h6>
+                </td>
+                <td data-th="Supplier username">
+                    {{profil.user.username}}
+                </td>
+                <td data-th="Supplier username">
+                    {{profil.user.first_name}}           
+                <td data-th="year">
+                    {{profil.year}}
+                </td>
+                <td data-th="fianl_score">
+                    {{profil.final_score}}
+                </td>
+                <td data-th="time">
+                    {{profil.time_counter}}sec                                                                                            
+                </td>          
+            </tr>
+            
+            
+            {% endfor %}
+            
+    </tbody>
+</table>
+  
+
+
+{% endblock content %}

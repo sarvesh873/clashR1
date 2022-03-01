@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Clash
+    </title>
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- APP CSS -->
+    <link rel="stylesheet"  href="{% static 'result/css/grid.css' %}" >
+    <link rel="stylesheet"  href="{% static 'result/css/app.css' %}" >
+    <link rel="stylesheet" href="{% static 'qpage/css/style.css' %}">
+    <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
+</head>
+
+<body>
+    <section class="navigation" style="width: auto;">
+        <img src="{% static 'login/img/clashwhite.png' %}" style="width: 100px; height: 35px; float: left; margin-top: 10px; margin-left: 5px">
+        <nav>
+          <ul class="nav-list">
+            <li>
+              <img src="{% static 'login/img/pisblogo.png' %}" style="width: 120px; height: 35px; margin-left: 20px; margin-top: 10px; margin-right: 20px; display: flex; justify-content: space-between;">
+            </li>
+          </ul>
+        </nav>
+    </section>
+    <!-- MAIN CONTENT -->
+    <div class="main">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="box box-hover">
+                        <!-- COUNTER -->
+                        <div class="counter">
+                            <div class="counter-title">
+                                Username
+                            </div>
+                            <div class="counter-info">
+                                <div class="counter-count">
+                                    {{user.username}}
+                                </div>
+                                <i class='fa fa-user'></i>
+                            </div>
+                        </div>
+                        <!-- END COUNTER -->
+                    </div>
+                </div>
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="box box-hover">
+                        <!-- COUNTER -->
+                        <div class="counter">
+                            <div class="counter-title">
+                                Score
+                            </div>
+                            <div class="counter-info">
+                                <div class="counter-count">
+                                    {{profile.final_score}}
+                                </div>
+                                <i class='fa fa-line-chart'></i>
+                            </div>
+                        </div>
+                        <!-- END COUNTER -->
+                    </div>
+                </div>
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="box box-hover">
+                        <!-- COUNTER -->
+                        <div class="counter">
+                            <div class="counter-title">
+                                Questions attempted
+                            </div>
+                            <div class="counter-info">
+                                <div class="counter-count">
+                                    {{profile.number_of_submits}}
+                                </div>
+                                <i class='fa fa-question' style="font-size:35px"></i>
+                            </div>
+                        </div>
+                        <!-- END COUNTER -->
+                    </div>
+                </div>
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="box box-hover">
+                        <!-- COUNTER -->
+                        <div class="counter">
+                            <div class="counter-title">
+                                Correct answered
+                            </div>
+                            <div class="counter-info">
+                                <div class="counter-count">
+                                    {{profile.correct_ques}}
+                                </div>
+                                <i class='fa fa-check'></i>
+                            </div>
+                        </div>
+                        <!-- END COUNTER -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-5 col-md-6 col-sm-12">
+                    <!-- TOP PRODUCT -->
+                    <div class="clash-info">
+                        <div class="box f-height">
+                            <div class="box-header">
+                                Reverse Coding
+                            </div><br>
+                       A coding competition to test your compilation of the combinations of algorithms and conceptual understanding of the programming languages C/C++. Combine logic and agility to decipher given patterns and code to decode these sequences to find the final answer.
+                        </div>
+                    </div>
+                    
+                    <!-- TOP PRODUCT -->
+                </div>
+                <div class="col-4 col-md-6 col-sm-12">
+                    <!-- CATEGORY CHART -->
+                    <div class="chart-content">
+                        <header class="title"><h3>Clash Visualizer</h3></header><br>
+                        <canvas id="progress-chart"></canvas>
+                        <div id="chart-legend" class="chart-legend"></div>
+                    </div>
+                    <!-- END CATEGORY CHART -->
+                </div>
+                <div class="col-5 col-md-12 col-sm-12">
+                    <!-- CUSTOMERS CHART -->
+                    <div class="sponsors-info">
+                        <div class="box f-height">
+                            <div class="box-header">
+                                Sponsors
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="gallery-item shoe">
+                                        <div class="gallery-item-inner">
+                                            <img src="{% static 'login/img/cn1.jpg' %}" alt="sponsor1">
+                                        </div>
+                                    </div>
+                                    <div class="gallery-item headphone">
+                                        <div class="gallery-item-inner">
+                                            <img src="{% static 'login/img/cn1.jpg' %}"  alt="sponsor2">
+                                        </div>
+                                    </div>
+                                    <div class="gallery-item camera">
+                                        <div class="gallery-item-inner">
+                                            <img src="{% static 'login/img/cp2.jpg' %}" alt="sponsor3">
+                                        </div>
+                                    </div>
+                                    <div class="gallery-item camera">
+                                        <div class="gallery-item-inner">
+                                            <img src="{% static 'login/img/cp2.jpg' %}" alt="sponsor3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END CUSTOMERS CHART -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+    <div class="overlay"></div>
+
+    <div class="footer">
+        <!-- <div class="leftieee">&copy; PICT IEEE Student Branch</div> -->
+        <div class="middleieee">&copy; PICT IEEE Student Branch</div>
+      </div>
+      <!-- end of footer -->
+
+    <!-- SCRIPT -->
+    <!-- APEX CHART -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <script>
+        $(function() {
+
+// Set up pie chart and add data.
+let corr_ques = parseInt("{{profile.correct_ques}}");
+let wrong_ques =  parseInt("{{profile.number_of_submits}}") - corr_ques ;
+var config = {
+  type: 'pie',
+  options: {
+    legend: {
+      display: false
+    },
+    cutoutPercentage: 0.1,
+    animation: {
+      animateScale: true
+    }
+  },
+  data: {
+    labels: ["Correct answers", "Wrong answers"],
+    machineLabels: ["correct answers", "wrong answers"],
+    datasets: [{
+      borderWidth: 0,
+      backgroundColor: [
+        '#6ab04c',
+        '#d35400',
+      ],
+      data: [corr_ques, wrong_ques]
+    }]
+  }
+};
+
+// Instantiate the pie chart in the canvas element.
+var myPie = new Chart(document.getElementById('progress-chart'), config);
+
+// Register click event to log the clicked label (machine name).
+document.getElementById('progress-chart').onclick = function(evt) {
+  var activePoints = myPie.getElementAtEvent(evt);
+  var firstPoint = activePoints[0];
+  if (firstPoint !== undefined) {
+    var clickedItem = config.data.machineLabels[firstPoint._index];
+    console.log(clickedItem);
+  }
+};
+
+// Add the legend in custom area to allow CSS theming.
+document.getElementById('chart-legend').innerHTML = myPie.generateLegend();
+
+
+
+});
+    </script>
+
+
+
+</body>
+
+<!-- APP JS -->
+<!-- <script  src="{% static 'login/css/result.js' %}"></script> -->
+<!-- <script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/scripts.js"></script>
+<script src="./js/navbar.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+</html>
