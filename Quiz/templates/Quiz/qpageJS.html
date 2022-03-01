@@ -1,3 +1,4 @@
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 <script>
     let strcounter = "{{profile.time_counter}}";
     let strtzcounter = "{{profile.time_rz_counter}}";
@@ -10,8 +11,11 @@
     }
     let scounter = parseInt(strcounter);
     let tzcounter = parseInt(strtzcounter);
-    if (sessionStorage.counter){
+    if (sessionStorage.counter && !isNaN(sessionStorage.counter)){
         a = 1;
+    }
+    else if(isNaN(sessionStorage.counter)){
+      sessionStorage.counter = 0;
     }
     else{
     sessionStorage.counter = scounter;}
@@ -42,6 +46,7 @@
   
         if (sessionStorage.counter >= total_time) {
           clearInterval(interval);
+          sessionStorage.removeItem('counter');
           document.getElementById("endQuizForm").submit();
         }
       }
@@ -58,7 +63,7 @@
     }
   
     function startRZ(){
-      if(sessionStorage.counter == 3*60 + 17 || sessionStorage.counter == 20*60+27){
+      if(sessionStorage.counter == 3*60 + 17 || sessionStorage.counter == 20*60 - 27){
         document.getElementById("RZForm").submit();
       }
     }
@@ -96,7 +101,7 @@
   {% csrf_token %}
   <input type="hidden" name="timer" id = "saveTimerAjax" value="0">
 </form>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 {% csrf_token %}
 <script>
 
@@ -122,8 +127,27 @@
   <script>
   
     document.getElementById('rzactivation').innerHTML = "Combat Zone Activated!";
+    // modalrz = document.getElementById("modal-container-545178");
+    // modalrz.style.display = "block";
   </script>
+  
 {% endif %}
+  
+{% if profile.popRZModal %}
+<script type="text/javascript">
+  window.addEventListener("load", function(){
+    setTimeout(
+      function open(event){
+        console.log("yt wala")
+        document.querySelector("#modal-container-545178").style.display = "block";
+        $("#modal-container-545178").modal({show: true});
+      },
+      1000
+    )
+  })
+</script>
+{% endif %}
+
 
 {% if not canUseLifeline %}
   <style>
@@ -143,18 +167,18 @@
   padding: 5px;
   text-decoration: none !important;
   font-family: monospace, "Courier New", Courier;
+  opacity: 0.4!important;
 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: gray;
   box-sizing: border-box;
   overflow: hidden;
   box-shadow: 5px 5px 5px #f8f005;
   border: 2px solid #f8f005;
   color: white;
   padding: 10px;
-  cursor: no-drop;
+  cursor: not-allowed;
 }
 
 .btn1:before {
@@ -171,7 +195,7 @@
 }
 
 .btn1:hover{
-  background: gray;
+  cursor: not-allowed;
 }
 
 .btn1 span {
@@ -220,3 +244,26 @@
     ele1.classList.add("nocurr");
   </script>
 {% endif %}
+
+<script>
+  function clearCounter(){
+    sessionStorage.removeItem("counter");
+  }
+</script>
+
+{% if isLastQuestion %}
+  <script>
+    $("#lQues").click(function(){
+      sessionStorage.removeItem("counter");
+    });
+  </script>
+{% endif %}
+
+<script>
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+console.log(getRandomInt(-60,60));
+</script>

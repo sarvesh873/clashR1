@@ -72,9 +72,11 @@ class extendeduser(models.Model):
     prev_que_correct = models.BooleanField(default=False)
     questions_alloted = models.BooleanField(default=False)
     level = models.CharField(max_length=20,default="1")
-    tab = models.IntegerField(default=25)
+    tab = models.IntegerField(default=100)
     redzone_skipped = models.BooleanField(default=False)
     login_time = models.DateTimeField(null=True)
+    popRZModal = models.BooleanField(default=False)
+    popLifelineModal = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.username}'

@@ -5,9 +5,12 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
     <title>Clash</title>
-
+    <!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
+  <!-- BS JavaScript -->
+    <script src="{% static 'qpage/js/jquery.min.js' %}"></script>
+    <script src="{% static 'qpage/js/bootstrap.min.js' %}"></script>
     <meta
       name="description"
       content="Source code generated using layoutit.com"
@@ -20,8 +23,9 @@
       src="https://kit.fontawesome.com/64d58efce2.js"
       crossorigin="anonymous"
     ></script>
+
   </head>
-  <body>
+  <body ondrag="select()"  onmousedown="return false" onselectstart="return false">
     <section class="navigation">
       <div class="nav-container">
         <div class="brand">
@@ -54,7 +58,7 @@
                       <form action="{% url 'endquiz' %}" method="post">
                         {% csrf_token %}
                         <input type="hidden" name="end" value="submitted">
-                      <button type="submit" class="btn btn-danger" id="switched">Logout</a>
+                      <button type="submit" class="btn btn-danger" id="switched" onclick="clearCounter()">Logout</a>
                       </form>
                     </div>
                   </div>
@@ -114,6 +118,12 @@
               <span class="blinky feat-blinky"></span>
             </h1>
           </div>
+
+          <script>
+            modalrz = document.getElementById("modal-container-545178");
+            modalrz.style.display = "block";
+          </script>
+
           {% endfor %}
           <div class="question-area" style="margin-top: 10px">
             <div class="question-area-text">
@@ -218,6 +228,7 @@
                   type="button"
                   role="button"
                   onclick="save_n_next()"
+                  id="lQues"
                 >
                   Save and Next
                 </button>
@@ -269,7 +280,6 @@
                           <th scope="col">Rank</th>
                           <th scope="col">USername</th>
                           <th scope="col">Firstname</th>
-                          <th scope="col">Year</th>
                           <th scope="col">Score</th>
                         </tr>
                       </thead>
@@ -279,7 +289,6 @@
                           <th scope="row">{{ forloop.counter }}</th>
                           <td>{{profil.user.username}}</td>
                           <td>{{profil.user.first_name}}</td>
-                          <td>{{profil.year}}</td>
                           <td>{{profil.final_score}}</td>
                         </tr>
                         {% endfor %}
@@ -314,12 +323,14 @@
               role="button"
               class="btn1"
               data-toggle="modal"
-            >
+            > 
+              
               <span class="lfl-1"></span>
               <span></span>
               <span></span>
               <span></span>
-              Activate lifeline 1 </button
+              Activate lifeline 1
+              </button
             ><br />
             <div
               class="modal fade"
@@ -402,7 +413,7 @@
               <span></span>
               <span></span>
               <span></span>
-              <p id="rzactivation"> Combat Zone Activation</p>
+              <p id="rzactivation"> Combat Zone</p>
             </button>
             <div
               class="modal fade"
@@ -460,12 +471,13 @@
       <!-- end of footer -->
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
     <script src="{% static 'qpage/js/jquery.min.js' %}"></script>
     <script src="{% static 'qpage/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'qpage/js/scripts.js' %}"></script>
     <script src="{% static 'qpage/js/navbar.js' %}"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- REDZONE STUFF -->
     <form action="{% url 'red_zone' %}" method="post" id="RZForm">
@@ -531,7 +543,7 @@
         });
       });
   </script>
-  {% if profile.time_speed == 500 %}
+  {% if profile.time_speed == 750 %}
   <style>
     .rztimer{
       background-color: rgb(235, 77, 77);
@@ -555,5 +567,12 @@
       console.log("green")
     </script>
   {% endif %}
+  <script>
+    $(document).ready(function() {
+        $('body').bind('cut copy', function(e) {
+            e.preventDefault();
+          });
+      });
+  </script>
   </body>
 </html>

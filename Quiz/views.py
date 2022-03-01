@@ -32,6 +32,7 @@ def quiz(request):
         selected_option = int(request.POST.get('btnradio', 0))
         time_counter=int(request.POST.get('time_counter'))
         profile.time_counter=time_counter
+        profile.popRZModal = False # Changes
         profile.save()
         try:
             lifeline = UserLifelineData.objects.get(user=user)
@@ -55,7 +56,7 @@ def quiz(request):
                     profile.final_score+=profile.marking_negative
                     profile.marking_positive=2
                     profile.marking_negative=-1
-                    profile.time_speed = 500
+                    profile.time_speed = 750
                 elif(selected_option==que.correct_ans):
                     profile.final_score+=profile.marking_positive
                     profile.marking_positive=4
@@ -71,8 +72,8 @@ def quiz(request):
                     profile.final_score+=profile.marking_negative
                     profile.marking_positive=2
                     profile.marking_negative=-1
-                    if profile.time_speed == 1000 or profile.time_speed == 500:
-                        profile.time_speed = 500
+                    if profile.time_speed == 1000 or profile.time_speed == 750:
+                        profile.time_speed = 750
                     else:
                         profile.time_speed = 1000
                 elif(selected_option==que.correct_ans):
@@ -91,7 +92,8 @@ def quiz(request):
    
     utc=pytz.UTC
     
-    if datetime.datetime.now().replace(tzinfo=utc) > (profile.login_time.replace(tzinfo=utc) + datetime.timedelta(minutes=47)):
+    if datetime.datetime.now().replace(tzinfo=utc) > (profile.login_time.replace(tzinfo=utc) + datetime.timedelta(minutes=60)):
+        messages.error("Your Slot has ended!")
         return redirect('result')
         
     
@@ -147,12 +149,17 @@ def quiz(request):
         profile.save()
         
         return redirect('skipped_red_zone')
-    
+
+    if profile.number_of_submits == total_ques-1:
+        isLastQuestion = True
+    else:
+        isLastQuestion = False
 
     question = Question.objects.get(pk = que_dict["id"])
     rank1 = rank(user)
     context = {'question':question,   'title':"Clash Round 1", 'score':profile.final_score, 'profile':profile, 'q_no':profile.number_of_submits+1, 'lifeline_status':lifeline_status, 'accu':accu,
-    'canUseLifeline':canUseLifeline(request.user), 'mark_pos':mark_pos, 'mark_neg':mark_neg, 'profiles':profiles, 'rank':rank1} #'user_res':user_res,'next':next,
+    'canUseLifeline':canUseLifeline(request.user), 'mark_pos':mark_pos, 'mark_neg':mark_neg, 'profiles':profiles, 'rank':rank1,
+    'isLastQuestion':isLastQuestion} #'user_res':user_res,'next':next,
     return render(request,'Quiz/Qpage.html', context)
 
 
@@ -373,7 +380,7 @@ def red_zone(request):
     profile.red_zone_active = True
     profile.time_counter = timer
     profile.time_rz_counter =timer
-    
+    profile.popRZModal = True
     
     profile.save()
     messages.error(request,"Combat Zone Activated!!!!")
@@ -403,6 +410,7 @@ def saveTimer(request):
 
     
 # Result Page View  
+    
 def result(request):
     try:
         
@@ -412,6 +420,7 @@ def result(request):
             accu = round(profile.correct_ques / profile.number_of_submits * 100,2)
         except:
             accu = 0
+        
         context = {'profile': profile , 'user':request.user, 'accu':accu}
         auth.logout(request)
         return  render(request,'Quiz/result.html',context)
