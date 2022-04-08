@@ -1,4 +1,5 @@
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+
 <script>
     let strcounter = "{{profile.time_counter}}";
     let strtzcounter = "{{profile.time_rz_counter}}";
@@ -95,7 +96,8 @@
     }
     
     function stopRZ(){
-      if (sessionStorage.counter - tzcounter == 3*60 && RZactive){
+      console.log(sessionStorage.counter)
+      if (sessionStorage.counter - tzcounter >= 3*60 && sessionStorage.counter - tzcounter <= 3*60 + 10 && RZactive){
         document.getElementById('endRZCounter').value = sessionStorage.counter;
         document.getElementById('endRZ').submit();
   
@@ -248,6 +250,8 @@
   <script>
     ele1 =document.getElementById('modal-744963').disabled = true;
     ele1.classList.add("nocurr");
+
+
   </script>
 {% endif %}
 

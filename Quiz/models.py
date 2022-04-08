@@ -6,11 +6,11 @@ import json
 # Create your models here.
 
 class Question(models.Model):
-    question = models.TextField(max_length=500)
-    option_1 = models.CharField(max_length=500)
-    option_2 = models.CharField(max_length=500)
-    option_3 = models.CharField(max_length=500)
-    option_4 = models.CharField(max_length=500)
+    question = models.TextField(max_length=5000)
+    option_1 = models.CharField(max_length=5000)
+    option_2 = models.CharField(max_length=5000)
+    option_3 = models.CharField(max_length=50000)
+    option_4 = models.CharField(max_length=5000)
     
     class Answer(models.IntegerChoices):
         option_1 = 1
@@ -54,7 +54,7 @@ YEAR_CHOICE=[
 ]
 
 class extendeduser(models.Model):
-    number = models.CharField(max_length=20,null=True,default="")
+    number = models.CharField(max_length=10,null=True,default="")
     year = models.CharField(max_length=20, choices=YEAR_CHOICE,null=True,default="")
     user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
     final_score = models.IntegerField(default=0)
@@ -72,11 +72,12 @@ class extendeduser(models.Model):
     prev_que_correct = models.BooleanField(default=False)
     questions_alloted = models.BooleanField(default=False)
     level = models.CharField(max_length=20,default="1")
-    tab = models.IntegerField(default=100)
+    tab = models.IntegerField(default=3)
     redzone_skipped = models.BooleanField(default=False)
     login_time = models.DateTimeField(null=True)
     popRZModal = models.BooleanField(default=False)
     isEmerLogged = models.BooleanField(default=False)
+    # extra_tab = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.user.username}'

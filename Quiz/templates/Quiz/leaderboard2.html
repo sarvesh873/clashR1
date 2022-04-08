@@ -9,22 +9,18 @@
               
             }
 </style>
-<h1>eelo level 1</h1>
-
+<h1>eelo level 2</h1>
 <div class="border-top pt-3">
     <small class="text-muted">
-       <h2> admin's  <a class="ml-2" href="{% url 'logout' %}">logout </a></h2>
+       <h2> admin's <a class="ml-2" href="{% url 'logout' %}">logout </a></h2>
     </small>
 </div>
-
 <div class="border-top pt-3">
     <small class="text-muted">
        <h2>  <a class="ml-2" href="{% url 'emerglogin' %}"> Emergency login</a></h2>
     </small>
 </div>
-
-<h2>  <a class="ml-2" href="{% url 'leaderboard2' %}">leaderboard2</a></h2>
-           
+<h2>  <a class="ml-2" href="{% url 'leaderboard' %}">leaderboard1</a></h2>
 <table class="rwd-table">
     <tbody>
         <tr>
@@ -35,7 +31,7 @@
             <th>year</th>
             <th>fianl_score</th>
             <th>timer</th>
-            <th>no of questions</th>
+            <th>  no of questions</th>
 
             
         </tr>
@@ -60,10 +56,10 @@
                 <td data-th="time">
                     {{profil.time_counter}}sec                                                                                            
                 </td>  
-                <td data-th="submit">
-                    {{profil.number_of_submits}}                                                                                      
-                </td>         
                 
+                <td data-th="time">
+                    {{profil.number_of_submits}}                                                                                      
+                </td>             
             </tr>
             
             

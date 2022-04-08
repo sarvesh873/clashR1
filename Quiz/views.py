@@ -428,18 +428,27 @@ def result(request):
     except:
         return redirect('login')
     
+from django.contrib.admin.views.decorators import staff_member_required
 
+@staff_member_required
 #Leaderboard View  
 def leaderboard(request):
-        profiles = extendeduser.objects.all()
-        profiles = extendeduser.objects.order_by('-final_score','time_counter')
+
+        # profiles = extendeduser.objects.all()
+        profiles = extendeduser.objects.filter(level = "1").order_by('-final_score','time_counter')
         context = {'profile': profiles , 'user':request.user}
         return  render(request,'Quiz/leaderboard.html',context)
-    
+
+@staff_member_required
+def leaderboard2(request):
+        # profiles = extendeduser.objects.all()
+        profiles = extendeduser.objects.filter(level = "2").order_by('-final_score','time_counter')
+        context = {'profile': profiles , 'user':request.user}
+        return  render(request,'Quiz/leaderboard2.html',context)
 
 
 
-
+@staff_member_required
 # Allow user to login again
 def emerglogin(request):
     if request.method == 'POST':
@@ -447,6 +456,7 @@ def emerglogin(request):
         password = request.POST['password']
         admin_username = request.POST['admin_username']
         admin_password = request.POST['admin_password']
+        extra_tab=request.POST['extra_tab']
         super_user =auth.authenticate(request, username=admin_username, password=admin_password)
         
         try:
@@ -458,6 +468,7 @@ def emerglogin(request):
                     messages.info(request,"The Player has Completed All Question..!!!")
                     return render(request, 'Quiz/emerglogin.html')
                 liveuser.active = True
+                liveuser.tab += int(extra_tab)
                 liveuser.save()
                 messages.info(request,"successfull!!")
                 return render(request, 'Quiz/emerglogin.html')
