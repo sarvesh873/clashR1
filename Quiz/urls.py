@@ -20,3 +20,4 @@ urlpatterns = [
     path('switchtab/', views.switchtab, name='switchtab'),
     path('skipped_red_zone/', views.skipped_red_zone, name='skipped_red_zone'),
 ]
+

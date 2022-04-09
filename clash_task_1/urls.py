@@ -22,3 +22,7 @@ urlpatterns = [
     path('', include('Quiz.urls')),
 
 ]
+
+handler404 = 'Quiz.views.errorhandle'
+handler403 = 'Quiz.views.errorhandle'
+handler400 = 'Quiz.views.errorhandle'

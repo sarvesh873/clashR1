@@ -538,3 +538,5 @@ def canUseLifeline(user1):
     return False
 
 
+def errorhandle(request,exception):
+    return render(request,'Quiz/login.html')
