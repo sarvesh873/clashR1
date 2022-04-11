@@ -540,3 +540,7 @@ def canUseLifeline(user1):
 
 def errorhandle(request,exception):
     return render(request,'Quiz/login.html')
+
+
+def webteam(request):
+    return render(request,'Quiz/webteam.html')
