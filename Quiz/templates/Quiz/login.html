@@ -29,7 +29,7 @@
 				<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background: linear-gradient(45deg,#19638b,#011722) "
 				<a class="navbar-brand" href="#">
 					<a href="" style="color: white; text-decoration: none; font-weight: 700; font-size: 22px;"></a>
-					<img  href="{% url 'login' %}" src="{% static 'login/img/clashwhite.png' %}" alt="Bootstrap" width="70" class="d-inline-block align-top" style="position: fixed; margin-left: 5px;">
+					<a href="{% url 'login' %}"><img  src="{% static 'login/img/clashwhite.png' %}" style="width: 80px; height: 35px; float: left; margin-left: 5px"></a>
 					</a>
 				  <button 
 					  class="navbar-toggler" 
@@ -43,7 +43,7 @@
 				  <span class="navbar-toggler-icon"></span>
 				  </button>
 				<div class="pisblogo navbar">
-					<img src="{% static 'login/img/pisblogo.png' %}" alt="Bootstrap" width="100" style="margin-right: 10px">
+					<a href="https://pictieee.in/" target="_blank"  > <img  src="{% static 'login/img/pisblogo.png' %}" style="width: 120px; height: 35px; margin-left: 20px; margin-right: 20px; display: flex; justify-content: space-between;"></a>
 				</div>
 				 
 				</nav>
@@ -56,16 +56,15 @@
 					CLASH
 				</div> -->
 				
-				<span class="mb-auto clash-text align-self-center" style="color: #92e6ff">Presents
-					CLASH
+				<span class="mb-auto clash-text align-self-center" style="color: #92e6ff">
 				</span>
 			</div>
 				
 			</div>
 			<div class="col-sm-6 right-col d-flex"> 
-			<div class="container-fluid px-0 login-box m-auto pb-4">
-				<div class="d-flex w-100 mx-auto mt-2 justify-content-center py-2" style="color: white;">
-					<h2>Login</h2>
+			<div class="container-fluid px-0 login-box m-auto">
+				<div class="d-flex w-100 mx-auto my-3 justify-content-center " style="color: white; font-size: 2rem!important;">
+					Clash
 				</div>
 				{% if error %}
 				<div class="alert d-flex alert-danger mx-auto fade show p-1 justify-content-between" style="width: 90%;"  role="alert">
@@ -81,7 +80,7 @@
 				{% endfor %}
 			<form action="{%url 'login' %}" method="POST">
 				{% csrf_token%}
-				<div class="editor-field mx-auto d-flex justify-content-center editor-field__textbox">
+				<div class="editor-field my-4 mx-auto d-flex justify-content-center editor-field__textbox">
 					<div class="editor-field__label-container" style="left: 5%;">
 					  <label class="editor-field__label">Username</label>
 					</div>
@@ -92,7 +91,7 @@
 					</div>
 					<div class="editor-field__noise"></div>
 				</div>
-				<div class="editor-field mx-auto d-flex justify-content-center editor-field__textbox">
+				<div class="editor-field mx-auto my-4 d-flex justify-content-center editor-field__textbox">
 					<div class="editor-field__label-container" style="left: 5%;">
 					  <label class="editor-field__label">Password</label>
 					</div>
@@ -103,7 +102,7 @@
 					</div>
 					<div class="editor-field__noise"></div>
 				  </div>
-				<div class="discs d-flex w-100 py-2 my-auto justify-content-around px-4 flex-row" style="color: white;">
+				<div class="discs d-flex w-100 py-2 mt-2 mb-3 justify-content-around px-4 flex-row" style="color: white;">
 
 
 							<label>
@@ -119,7 +118,7 @@
 				</div>
                 <div class="d-flex justify-content-center py-2 h-auto my-auto">
 					
-					<button class="cybr-btn  px-3">
+					<button class="cybr-btn  px-3" style="margin-top: 0.5rem;">
 						Login<span aria-hidden>_</span>
 						<span aria-hidden class="cybr-btn__glitch">Login</span>
 						<span aria-hidden class="cybr-btn__tag"></span>

@@ -9,8 +9,8 @@ import json
 import datetime
 import pytz
 
-total_ques = min(Question.objects.filter(level = "1").count(),Question.objects.filter(level = "2").count() )
-
+# total_ques = min(Question.objects.filter(level = "1").count(),Question.objects.filter(level = "2").count() )
+total_ques = 70
 
 # Quiz View
 
@@ -200,17 +200,17 @@ def login(request):
                 if not liveuser.questions_alloted:
                     all_ques = list_all_questions()
                     random.shuffle(all_ques)
-                    user_ques = []
-                    count = 0
-                    if liveuser.year == 'TE' or liveuser.year == 'BE':
-                        liveuser.level = "2"
-                    for i in all_ques:
-                        if liveuser.level == i.level:
+                    user_ques = all_ques[:70]
+                    # count = 0
+                    # if liveuser.year == 'TE' or liveuser.year == 'BE':
+                    #     liveuser.level = "2"
+                    # for i in all_ques:
+                    #     if liveuser.level == i.level:
                             
-                            user_ques.append(i.toJSON())
-                            count += 1
-                        if count == total_ques:
-                            break
+                    #         user_ques.append(i.toJSON())
+                    #         count += 1
+                    #     if count == total_ques:
+                    #         break
 
                     liveuser.login_time = datetime.datetime.now()
 
@@ -238,7 +238,7 @@ def register(request):
                     year = request.POST['year']
 
 
-                if (len(request.POST['password1']) < total_ques):
+                if (len(request.POST['password1']) < 8):
                     return render(request, 'Quiz/register.html', {'error': "Password too Short, Should Contain ATLEAST 1 Uppercase,1 lowercase,1 special Character and 1 Numeric Value"})
 
                 elif not re.search(r"[\d]+", request.POST['password1']):
@@ -428,18 +428,27 @@ def result(request):
     except:
         return redirect('login')
     
+from django.contrib.admin.views.decorators import staff_member_required
 
+@staff_member_required
 #Leaderboard View  
 def leaderboard(request):
-        profiles = extendeduser.objects.all()
-        profiles = extendeduser.objects.order_by('-final_score','time_counter')
+
+        # profiles = extendeduser.objects.all()
+        profiles = extendeduser.objects.filter(level = "1").order_by('-final_score','time_counter')
         context = {'profile': profiles , 'user':request.user}
         return  render(request,'Quiz/leaderboard.html',context)
-    
+
+@staff_member_required
+def leaderboard2(request):
+        # profiles = extendeduser.objects.all()
+        profiles = extendeduser.objects.filter(level = "2").order_by('-final_score','time_counter')
+        context = {'profile': profiles , 'user':request.user}
+        return  render(request,'Quiz/leaderboard2.html',context)
 
 
 
-
+@staff_member_required
 # Allow user to login again
 def emerglogin(request):
     if request.method == 'POST':
@@ -447,6 +456,7 @@ def emerglogin(request):
         password = request.POST['password']
         admin_username = request.POST['admin_username']
         admin_password = request.POST['admin_password']
+        extra_tab=request.POST['extra_tab']
         super_user =auth.authenticate(request, username=admin_username, password=admin_password)
         
         try:
@@ -458,6 +468,7 @@ def emerglogin(request):
                     messages.info(request,"The Player has Completed All Question..!!!")
                     return render(request, 'Quiz/emerglogin.html')
                 liveuser.active = True
+                liveuser.tab += int(extra_tab)
                 liveuser.save()
                 messages.info(request,"successfull!!")
                 return render(request, 'Quiz/emerglogin.html')
@@ -499,7 +510,7 @@ def skipped_red_zone(request):
 def list_all_questions():
     all_ques = []
     for que in Question.objects.all():
-        all_ques.append(que)
+        all_ques.append(que.toJSON())
     return all_ques
 
 def rank(user):
@@ -527,3 +538,5 @@ def canUseLifeline(user1):
     return False
 
 
+def errorhandle(request,exception):
+    return render(request,'Quiz/login.html')

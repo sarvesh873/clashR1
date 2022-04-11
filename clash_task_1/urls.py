@@ -18,7 +18,11 @@ from django.urls import path,include
 
 urlpatterns = [
 
-    path('admin/', admin.site.urls),
+    path('sarvesh/', admin.site.urls),
     path('', include('Quiz.urls')),
 
 ]
+
+handler404 = 'Quiz.views.errorhandle'
+handler403 = 'Quiz.views.errorhandle'
+handler400 = 'Quiz.views.errorhandle'
