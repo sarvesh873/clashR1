@@ -8,6 +8,9 @@ import random
 import json
 import datetime
 import pytz
+import requests
+
+
 
 # total_ques = min(Question.objects.filter(level = "1").count(),Question.objects.filter(level = "2").count() )
 total_ques = 370
@@ -188,9 +191,33 @@ def login(request):
    
     if request.user.is_authenticated:
         return redirect('profile')
+
+    
     if request.method == 'POST':
-        user = auth.authenticate(
-            username=request.POST['uname'], password=request.POST['pass'])
+
+        uname = request.POST['uname']
+        pwd = request.POST['pass']
+        url = 'https://backend.credenz.in/api/check_user/'
+        myobj = {'username': uname, 'password': pwd, 'event': 'Clash'}
+
+        # try:
+        userObj = requests.post(url, data = myobj)
+        userObj = json.loads(userObj.text)
+        # user = User.objects.create_user(username=uname, password=pwd)
+        # if userObj.senior:
+        #     liveuser = extendeduser(user = user)
+        print(userObj, "abcd")
+        # except:
+        #     messages.error(request, "Invalid Credentials 1")
+        #     return render(request,'Quiz/login.html')
+
+        # user = auth.authenticate(
+        #     username=request.POST['uname'], password=request.POST['pass'])
+        # try:
+        #     user = User.objects.filter(username=uname).first()
+        # except:
+        #     user = User.objects.create_user(username=uname, password=pwd)
+
         if user is not None:
             liveuser = extendeduser.objects.get(user=user)
             if user and liveuser.active == True:
