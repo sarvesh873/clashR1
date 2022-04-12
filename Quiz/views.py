@@ -10,7 +10,7 @@ import datetime
 import pytz
 
 # total_ques = min(Question.objects.filter(level = "1").count(),Question.objects.filter(level = "2").count() )
-total_ques = 70
+total_ques = 370
 
 # Quiz View
 
