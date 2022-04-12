@@ -25,6 +25,7 @@
     
 
   </head>
+  <body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
   <body  >
     <section class="navigation">
       <div class="nav-container">
@@ -615,6 +616,14 @@
       // alert('Right Click is Disabled');    
       }, false);
       </script>
-  
+
+      
   </body>
+  <script type="text/javascript">
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+</script>
 </html>

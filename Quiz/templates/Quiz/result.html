@@ -48,7 +48,7 @@
                                 <div class="counter-count">
                                     {{user.username}}
                                 </div>
-                                <i class='fa fa-user'></i>
+                                <i class='fa fa-user' style="color: white;"></i>
                             </div>
                         </div>
                         <!-- END COUNTER -->
@@ -65,7 +65,7 @@
                                 <div class="counter-count">
                                     {{profile.final_score}}
                                 </div>
-                                <i class='fa fa-line-chart'></i>
+                                <i class='fa fa-line-chart'  style="color: white;"></i>
                             </div>
                         </div>
                         <!-- END COUNTER -->
@@ -82,7 +82,7 @@
                                 <div class="counter-count">
                                     {{profile.number_of_submits}}
                                 </div>
-                                <i class='fa fa-question' style="font-size:35px"></i>
+                                <i class='fa fa-question' style="font-size:35px; color: white;"></i>
                             </div>
                         </div>
                         <!-- END COUNTER -->
@@ -99,7 +99,7 @@
                                 <div class="counter-count">
                                     {{profile.correct_ques}}
                                 </div>
-                                <i class='fa fa-check'></i>
+                                <i class='fa fa-check'  style="color: white;"></i>
                             </div>
                         </div>
                         <!-- END COUNTER -->
@@ -141,22 +141,26 @@
                                 <div class="row">
                                     <div class="gallery-item shoe">
                                         <div class="gallery-item-inner">
-                                            <img src="{% static 'login/img/cn1.jpg' %}" alt="sponsor1">
+                                            <a href="https://www.codingninjas.com/" target="_blank">
+                                            <img src="{% static 'login/img/cn1.jpg' %}" alt="sponsor1"></a>
                                         </div>
                                     </div>
                                     <div class="gallery-item headphone">
                                         <div class="gallery-item-inner">
-                                            <img src="{% static 'login/img/cn1.jpg' %}"  alt="sponsor2">
+                                            <a href="https://www.imperial-overseas.com/" target="_blank">
+                                            <img src="{% static 'login/img/Imperial.63d05fb5.png' %}"  alt="sponsor2"></a>
                                         </div>
                                     </div>
                                     <div class="gallery-item camera">
                                         <div class="gallery-item-inner">
-                                            <img src="{% static 'login/img/cp2.jpg' %}" alt="sponsor3">
+                                            <a href="https://www.convergeapp.co/" target="_blank">
+                                            <img src="{% static 'login/img/convergeLogo.c50c9f30.png' %}" alt="sponsor3"></a>
                                         </div>
                                     </div>
                                     <div class="gallery-item camera">
                                         <div class="gallery-item-inner">
-                                            <img src="{% static 'login/img/cp2.jpg' %}" alt="sponsor3">
+                                            <a href="https://chanakyamandal.org/" target="_blank">
+                                            <img src="{% static 'login/img/ChanakyaMandalPariwar.d99c9031.png' %}" alt="sponsor3"> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +178,7 @@
 
     <div class="footer">
         <!-- <div class="leftieee">&copy; PICT IEEE Student Branch</div> -->
-        <div class="middleieee">&copy; PICT IEEE Student Branch</div>
+        <div class="middleieee">&copy; PICT IEEE Student Branch | Made with ❤️ by <a href="{% url 'webteam' %}" style="text-decoration: none; color:#51CCF1;">WebTeam</a> </div>
       </div>
       <!-- end of footer -->
 

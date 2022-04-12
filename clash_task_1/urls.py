@@ -18,7 +18,7 @@ from django.urls import path,include
 
 urlpatterns = [
 
-    path('sarvesh/', admin.site.urls),
+    path('sarvesh94/', admin.site.urls),
     path('', include('Quiz.urls')),
 
 ]

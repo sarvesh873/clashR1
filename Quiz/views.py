@@ -201,9 +201,9 @@ def login(request):
                     all_ques = list_all_questions()
                     random.shuffle(all_ques)
                     user_ques = all_ques[:70]
-                    # count = 0
-                    # if liveuser.year == 'TE' or liveuser.year == 'BE':
-                    #     liveuser.level = "2"
+                    count = 0
+                    if liveuser.year == 'TE' or liveuser.year == 'BE':
+                        liveuser.level = "2"
                     # for i in all_ques:
                     #     if liveuser.level == i.level:
                             
@@ -442,7 +442,7 @@ def leaderboard(request):
 @staff_member_required
 def leaderboard2(request):
         # profiles = extendeduser.objects.all()
-        profiles = extendeduser.objects.filter(level = "2").order_by('-final_score','time_counter')
+        profiles = extendeduser.objects.filter(level = "2" ).order_by('-final_score','time_counter')
         context = {'profile': profiles , 'user':request.user}
         return  render(request,'Quiz/leaderboard2.html',context)
 
@@ -540,3 +540,6 @@ def canUseLifeline(user1):
 
 def errorhandle(request,exception):
     return render(request,'Quiz/login.html')
+
+def webteam(request):
+    return render(request,'Quiz/webteam.html')
