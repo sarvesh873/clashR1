@@ -1,0 +1,12 @@
+{% extends 'Quiz/layout.html' %}
+{% block content %}
+
+<form method="POST" action="{%url 'usname'%}">
+    {% csrf_token %}
+    <h3 class="p"> Username : <input type="text" name="username" , required></h3><br>
+    <h3 class="p"> Username 2 (Exam Login) : <input type="text" name="username2" , required></h3><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock content %}

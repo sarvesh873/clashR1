@@ -13,7 +13,7 @@ import requests
 
 
 # total_ques = min(Question.objects.filter(level = "1").count(),Question.objects.filter(level = "2").count() )
-total_ques = 370
+total_ques = 100
 
 # Quiz View
 
@@ -188,68 +188,75 @@ def endquiz(request):
 
 # Login View
 def login(request):
-   
-    if request.user.is_authenticated:
-        return redirect('profile')
-
-    
     if request.method == 'POST':
 
         uname = request.POST['uname']
         pwd = request.POST['pass']
         url = 'https://backend.credenz.in/api/check_user/'
-        myobj = {'username': uname, 'password': pwd, 'event': 'Clash'}
+        myobj = {"username": uname, "password": pwd, "event": "Clash"}
 
-        # try:
-        userObj = requests.post(url, data = myobj)
-        userObj = json.loads(userObj.text)
-        # user = User.objects.create_user(username=uname, password=pwd)
-        # if userObj.senior:
-        #     liveuser = extendeduser(user = user)
-        print(userObj, "abcd")
-        # except:
-        #     messages.error(request, "Invalid Credentials 1")
-        #     return render(request,'Quiz/login.html')
+        user = auth.authenticate(username=request.POST['uname'], password=request.POST['pass'])
+        if(user is not None):
+            try:
+                liveuser = extendeduser.objects.get(user=user)
+                if liveuser.active:
+                    auth.login(request, user)
+                    liveuser.active = False
+                else:
+                    messages.error(request, "You have already appeared for the test.")
+                    return render(request, "Quiz/login.html")
 
-        # user = auth.authenticate(
-        #     username=request.POST['uname'], password=request.POST['pass'])
-        # try:
-        #     user = User.objects.filter(username=uname).first()
-        # except:
-        #     user = User.objects.create_user(username=uname, password=pwd)
-
-        if user is not None:
-            liveuser = extendeduser.objects.get(user=user)
-            if user and liveuser.active == True:
-                auth.login(request, user)
-                liveuser.active = False
-                auth.login(request, user)
                 if not liveuser.questions_alloted:
-                    all_ques = list_all_questions()
+                    if liveuser.year == 'FE' or liveuser.year == 'SE':
+                        liveuser.level = "1"
+                    all_ques = list_all_questions(liveuser.level)
                     random.shuffle(all_ques)
-                    user_ques = all_ques[:70]
-                    count = 0
-                    if liveuser.year == 'TE' or liveuser.year == 'BE':
-                        liveuser.level = "2"
-                    # for i in all_ques:
-                    #     if liveuser.level == i.level:
-                            
-                    #         user_ques.append(i.toJSON())
-                    #         count += 1
-                    #     if count == total_ques:
-                    #         break
+                    user_ques = all_ques[:total_ques]
 
                     liveuser.login_time = datetime.datetime.now()
 
                 
                     liveuser.random_ques = json.dumps(user_ques)
                 liveuser.save()
+                auth.login(request, user)
+                # messages.error(request,"Some error occured. Contact the organisers.")
+                return redirect('profile')
+            except:
+                pass
+            if user and liveuser.active == True:
+                auth.login(request, user)
+                liveuser.active = False
+                liveuser.save()
+                return redirect('profile')
             else:
-                messages.error(request, "You have already given the test.")
-            return redirect('profile')
-        return render(request, 'Quiz/login.html', {'error': "Invaild Crededntials"})
-    return render(request, 'Quiz/login.html')
+                messages.error(request,"You have already given the test.")
+                return render(request, "Quiz/login.html")
+        else:
+            try:
+                userObj = requests.post(url, json = myobj)
+                userObj = json.loads(userObj.text)
 
+                print(userObj)
+                newuser = User.objects.create_user(username = uname, password = pwd)
+                profile = extendeduser(user=newuser)
+                profile.save()
+                if(not userObj["senior"]):
+                    profile.level = "0"
+                    profile.active = False
+                if not profile.questions_alloted:
+                    all_ques = list_all_questions(profile.level)
+                    random.shuffle(all_ques)
+                    user_ques = all_ques[:total_ques]
+                    profile.login_time = datetime.datetime.now()
+                    profile.questions_alloted = True
+                    profile.random_ques = json.dumps(user_ques)
+                profile.save()
+                auth.login(request, newuser)
+                return redirect('profile')
+            except:
+                messages.error(request, "Invalid Credential!")
+
+    return render(request,'Quiz/login.html')
 
 #Register View
 def register(request):
@@ -534,10 +541,11 @@ def skipped_red_zone(request):
 
 # -------------------Utility functions--------------------
 
-def list_all_questions():
+def list_all_questions(level):
     all_ques = []
     for que in Question.objects.all():
-        all_ques.append(que.toJSON())
+        if que.level == level:
+            all_ques.append(que.toJSON())
     return all_ques
 
 def rank(user):
@@ -570,3 +578,30 @@ def errorhandle(request,exception):
 
 def webteam(request):
     return render(request,'Quiz/webteam.html')
+
+
+@staff_member_required
+def usname(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        usname2 = request.POST['username2']
+        try:
+            # profile = auth.authenticate(username=username)
+            # print(profile)
+            try:
+                profile = User.objects.get(username = username)
+            except:
+                profile = User.objects.create_user(username = username, password = "Admin@1234", first_name = f"pair: {usname2}")
+                
+            if profile is not None :
+                    liveuser = extendeduser.objects.get(user=profile)
+                    liveuser.active = False
+                    liveuser.save()
+                    messages.info(request,"successfull!!")
+                    return render(request, 'Quiz/username.html')
+            messages.info(request,"Invalid Credentials!!")
+            return render(request, 'Quiz/username.html')
+        except:
+            messages.info(request,"not valid Credentials!!")
+            return render(request, 'Quiz/username.html')
+    return render(request, 'Quiz/username.html')

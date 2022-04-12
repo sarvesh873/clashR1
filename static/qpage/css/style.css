@@ -283,14 +283,12 @@ nav ul li ul li a {
   /* background: rgb(234, 238, 9); */
   color: #11101d;
   /* border: 4px solid rgb(234, 238, 9); */
-  font-size: 16px;
   /* padding-top: 20px!important; */
   font-weight: bolder;
   letter-spacing: 3px;
   text-align: center;
   display: block;
   position: relative;
-  padding: 0.2rem;
   text-decoration: none !important;
   font-family: monospace, "Courier New", Courier;
 
@@ -402,7 +400,7 @@ nav ul li ul li a {
   /* background: rgb(234, 238, 9); */
   color: #11101d;
   /* border: 4px solid rgb(234, 238, 9); */
-  font-size: 16px;
+  /* font-size: 16px; */
   font-weight: bolder;
   letter-spacing: 3px;
   text-align: center;
@@ -521,18 +519,16 @@ transform:rotate(270deg);
 
 
 .btn3 {
-  margin-top: 5px;
   text-align: center;
   height: 50px;
   background: #083e5c;
   color: white;
   border: 4px solid white;
-  font-size: 1.5vw;
   font-weight: bolder;
   display: block;
   position: relative;
-  padding: 0.5vw;
   letter-spacing: 3px;
+  padding-top: 5px;
   text-decoration: none !important;
   font-family: monospace, "Courier New", Courier;
 }
@@ -551,19 +547,16 @@ transform:rotate(270deg);
   bottom: 26px;
 }
 .btn8 {
-  margin-top: 20px;
   text-align: center;
   height: 50px;
   background: #083e5c;
   color: white;
   border: 4px solid white;
-  font-size: 1.2vw;
   font-weight: bolder;
   letter-spacing: 3px;
   display: block;
   position: relative;
-  padding: 0.5vw;
-
+  padding: 8px;
   text-decoration: none !important;
   font-family: monospace, "Courier New", Courier;
 }
@@ -612,17 +605,15 @@ transform:rotate(270deg);
 
 .btn9 {
   text-align: center;
-  margin-top: 10px;
   height: 60px;
   background: #083e5c;
   color: white;
+  padding: 5%;
   border: 1px solid #083e5c;
-  font-size: 2vw;
   font-weight: bolder;
   letter-spacing: 3px;
   display: block;
   position: relative;
-  padding: 0.8vw;
   text-decoration: none !important;
   font-family: monospace, "Courier New", Courier;
 }
@@ -646,12 +637,11 @@ transform:rotate(270deg);
   background: #083e5c;
   color: white;
   border: 4px solid white;
-  font-size: 1.5vw;
   font-weight: bolder;
   letter-spacing: 3px;
   display: block;
   position: relative;
-  padding: 0.5vw;
+  padding-top: 8px;
   text-decoration: none !important;
   font-family: monospace, "Courier New", Courier;
 }
@@ -683,12 +673,11 @@ transform:rotate(270deg);
   background: #083e5c;
   color: white;
   border: 4px solid white;
-  font-size: 1.3vw;
   font-weight: bolder;
   letter-spacing: 3px;
   display: block;
   position: relative;
-  padding: 0.5vw;
+  padding-top: 8px;
   text-decoration: none !important;
   font-family: monospace, "Courier New", Courier;
 }
@@ -707,7 +696,9 @@ transform:rotate(270deg);
 }
 
 .btn5 {
+  justify-content: center;
   text-align: center;
+  margin-right: 20px;
   height: 50px;
   background: white;
   color: white;
@@ -819,25 +810,24 @@ transform:rotate(270deg);
   opacity: 1;
 }
 
-.btn10, .btn11 {
+.btn10 {
   margin-top: 5px;
   text-align: center;
   height: 50px;
   background: #083e5c;
   color: white;
   border: 4px solid white;
-  font-size: 1.5vw;
   font-weight: bolder;
   letter-spacing: 3px;
   display: block;
   cursor: pointer;
   position: relative;
-  padding: 0.5vw;
+  padding-top: 8px;
   text-decoration: none !important;
   font-family: monospace, "Courier New", Courier;
 }
 
-.btn10::after,.btn11::after {
+.btn10::after {
   content: "";
   display: block;
   width: 0;
@@ -854,6 +844,34 @@ transform:rotate(270deg);
   background: white;
   color: #083e5c;
 
+}
+
+.btn11 {
+  text-align: center;
+  height: 50px;
+  background: #083e5c;
+  color: white;
+  border: 4px solid white;
+  font-weight: bolder;
+  letter-spacing: 3px;
+  display: block;
+  position: relative;
+  padding-top: 8px;
+  text-decoration: none !important;
+  font-family: monospace, "Courier New", Courier;
+}
+
+.btn11::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border: 10px solid #11101d;
+  border-right: 10px dashed white;
+  border-top: 10px dashed white;
+  position: absolute;
+  left: -4px;
+  top: 26px;
 }
 
 .timer-number {
@@ -1935,8 +1953,7 @@ and (max-device-width: 1024px) {
     height: 70px;
   }
   .btn3{
-    font-size: 10px;
-    padding-top: 15px;
+    font-size: 2rem;
   }
   .btn6{
     font-size: 10px;
@@ -1981,7 +1998,7 @@ and (max-device-width: 1024px) {
     height: 70px;
   }
   .btn3{
-    font-size: 10px;
+    font-size: 2rem;
     padding-top: 15px;
   }
   .btn6{
