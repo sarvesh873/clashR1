@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from django.contrib.messages import constants as messages
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-x^ix&xlvrhs&v(d)=eevp#&rt7)4met$wn_^ilw&p+m#-^a+3%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['20.70.7.225','localhost']
+ALLOWED_HOSTS = ['20.70.7.225', 'localhost', '*']
 
 
 # Application definition
@@ -118,13 +120,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-import os
 STATIC_URL = '/static/'
 # STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR,'static'),
-        ]
+    os.path.join(BASE_DIR, 'static'),
+]
 
 
 # MEDIA_URL = '/media/'
@@ -135,7 +136,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-from django.contrib.messages import constants as messages
 # messages config
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
