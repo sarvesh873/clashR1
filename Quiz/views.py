@@ -214,7 +214,7 @@ def login1(request):
 
                 if not liveuser.questions_alloted:
                     if liveuser.year == 'FE' or liveuser.year == 'SE':
-                        liveuser.level = "1"
+                        liveuser.level = "0"
                     all_ques = list_all_questions(liveuser.level)
                     random.shuffle(all_ques)
                     user_ques = all_ques[:total_ques]
