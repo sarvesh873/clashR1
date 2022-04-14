@@ -282,7 +282,7 @@ def login(request):
         uname = request.POST['uname']
         pwd = request.POST['pass']
         url1 = 'https://backend.credenz.in/api/check_user/'
-        url2 = 'https://backend.credenz.in/api/event_players/check_user/'
+        url2 = 'https://registrations.credenz.in/api/event_players/check_user/'
         myObj = {
             "username": uname,
             "password": pwd,
@@ -291,6 +291,16 @@ def login(request):
 
         user = auth.authenticate(
             username=request.POST['uname'], password=request.POST['pass'])
+
+        print(user, "dfdfsdfs")
+
+        if(user is None):
+            x = User.objects.filter(username = uname)
+            print(x, "x")
+            if x:
+                messages.error(
+                        request, "Invalid Credentials!")
+                return render(request, "Quiz/login.html")
 
         if user is not None:
             try:
@@ -329,16 +339,21 @@ def login(request):
                 return render(request, "Quiz/login.html")
 
         elif not user:
-            userObj = requests.post(url1, json=myObj)
-            userObj = json.loads(userObj.text)
+            try:
+                userObj = requests.post(url1, json=myObj)
+                userObj = json.loads(userObj.text)
+            except:
+                userObj = requests.post(url2, json=myObj)
+                userObj = json.loads(userObj.text)
 
-            if(userObj["status"] == "NotInSystem"):
-                try:
-                    userObj = requests.post(url2, json=myObj)
-                    userObj = json.loads(userObj.text)
-                except:
+            
+            try:
+                if(userObj["message"] == "Go to https://credenz.in to register"):
                     messages.error(request, "Invalid Credentials!!")
                     return render(request, "Quiz/login.html")
+            except KeyError:
+                pass
+                    
 
             newuser = User.objects.create_user(
                 username=uname, password=pwd)
@@ -346,7 +361,7 @@ def login(request):
             profile.save()
             if(not userObj["senior"]):
                 profile.level = "0"
-                profile.active = False
+                
             if not profile.questions_alloted:
                 all_ques = list_all_questions(profile.level)
                 random.shuffle(all_ques)
@@ -354,6 +369,7 @@ def login(request):
                 profile.login_time = datetime.datetime.now()
                 profile.questions_alloted = True
                 profile.random_ques = json.dumps(user_ques)
+            profile.active = False
             profile.save()
             auth.login(request, newuser)
             return redirect('profile')

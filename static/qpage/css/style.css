@@ -1261,7 +1261,7 @@ div.btn-group {
   padding: 10px!important;
   /* padding-top: 20px; */
   position: relative;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   /*for option overflow*/
   overflow-y: hidden!important;
   overflow-x: auto;
