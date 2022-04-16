@@ -1,7 +1,30 @@
 {% extends 'Quiz/layout.html' %}
 {% block content %}
+<style>
+    th,td {
+                width:150px;
+                text-align:center;
+                border:1px solid black;
+                padding:5px
+              
+            }
+</style>
+<h1>eelo level 1</h1>
 
-<h1>eelo</h1>
+<div class="border-top pt-3">
+    <small class="text-muted">
+       <h2> admin's  <a class="ml-2" href="{% url 'logout' %}">logout </a></h2>
+    </small>
+</div>
+
+<div class="border-top pt-3">
+    <small class="text-muted">
+       <h2>  <a class="ml-2" href="{% url 'emerglogin' %}"> Emergency login</a></h2>
+    </small>
+</div>
+
+<h2>  <a class="ml-2" href="{% url 'leaderboard2' %}">leaderboard2</a></h2>
+           
 <table class="rwd-table">
     <tbody>
         <tr>
@@ -12,6 +35,8 @@
             <th>year</th>
             <th>fianl_score</th>
             <th>timer</th>
+            <th>no of questions</th>
+            <th>Tab</th>
 
             
         </tr>
@@ -35,7 +60,14 @@
                 </td>
                 <td data-th="time">
                     {{profil.time_counter}}sec                                                                                            
-                </td>          
+                </td>  
+                <td data-th="submit">
+                    {{profil.number_of_submits}}                                                                                      
+                </td>     
+                <td data-th="tab">
+                    {{profil.tab }}                                                                                      
+                </td>    
+                
             </tr>
             
             
@@ -44,6 +76,18 @@
     </tbody>
 </table>
   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+  setInterval(function() {
+    cache_clear()
+  },  2 * 60 * 1000);
+});
 
+function cache_clear() {
+  window.location.reload(true);
+  window.location.reload(); 
+}
+</script>
 
 {% endblock content %}

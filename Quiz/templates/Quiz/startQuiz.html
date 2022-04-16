@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Instructions</title>
+    <link rel="shortcut icon" type="immage/png" href="{% static 'login/img/favicon.ico' %}">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -123,38 +124,39 @@
           class="instruction-section section"
           style="border-radius: 40px;"
         >
+        <h1 class="nik"  >instructions</h1>
+        <div class="wrapper">
+          <div class="form-group">
+            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="12">
+1. Clash round 1 is an MCQ-based round where participants will have to answer questions based upon 
+    programming concepts and languages.
 
-          <h1 class="nik"  >instructions</h1>
-          <ol class="font">
-            <li>
-              Clash round 1 is an MCQ-based round where participants will have to answer questions based upon programming concepts and languages.
-            </li>
-           <br>
-           <li>
-            Questions will be based upon C, C++, and Python languages.
-          </li>
-         <br>
-         <li>
-          The duration of this round is 28 minutes. No extra time will be provided.
-        </li>
-       <br>
-            <li>
-              The number of questions will be unlimited. A participant can solve as many questions as they want during the allotted time.
-            </li><br>
-            <li>
-              The marking scheme is +4/-2. However, if the participant has picked the incorrect answer for the previous question then the marking scheme for the next question becomes +2/-1.
-            </li><br>
-            <li>
-              The participants will be provided with two lifelines.
-            </li><br>
-            <li>
-              Tab switching is prohibited for the duration of the test.
-            </li><br>
-            <li>
-              In case of technical emergencies please contact the organisers immediately.
-            </li><br>
-          </ol>
-        </section>
+2. Questions will be based upon C, C++, and Python languages.
+
+3. The duration of this round is 28 minutes. No extra time will be provided.
+
+4. The number of questions will be unlimited. A participant can solve as many questions as they want 
+    during the allotted time.
+
+5. The marking scheme is +4/-2. However, if the participant has picked the incorrect answer for the previous 
+    question then the marking scheme for the next question becomes +2/-1.
+
+6. The marking scheme of each question will be visible on the screen
+
+7. The participants will be provided with two lifelines.
+
+8. Tab switching is prohibited for the duration of the test.
+
+9. All questions are compulsory. If you proceed to the next question without selecting an option, it will be 
+    considered as a wrong answer.
+
+10. In case of technical emergencies please contact the organisers immediately.
+              
+            </textarea> 
+          </div>
+        </div>
+
+      </section>
         <section
           class="lifeline1-section section "
           style="border-radius: 40px;"
@@ -162,6 +164,9 @@
 
           <h1 class="nik"  >Nitro-Boost</h1>
           <ol class="font">
+            <li>
+              This lifeline can only be activated if the participant has accumulated a score of at least 5 and has an accuracy of at least 30%.
+            </li><br>
             <li>
               Enter the score you want to be spent on the lifeline.
             </li>
@@ -171,14 +176,12 @@
             </li>
             <br>
             <li>
-              When this lifeline has been activated the scoring scheme for the next N questions is changed. Where N is the score spent.
+              When this lifeline has been activated the marking scheme for the next N questions will be changed. Where N is the score spent.
             </li><br>
             <li>
-              For example, the participant activated the lifeline on question number six and the score spent is 3. The scoring scheme for the current question becomes +4/-2. The next question has a scoring scheme of +5/-3. Then it becomes +6/-4.
+              For example, the participant activated this lifeline on question number six and chooses to spend a score of 3. The marking scheme for the next 3 questions will be as follows: +4/-2, +5/-3, and +6/-4.
             </li><br>
-            <li>
-              This lifeline can only be activated if the participant has accumulated a score of at least 5 and has an accuracy of at least 30%.
-            </li><br>
+            
           </ol>
         </section>
         <section
@@ -191,20 +194,21 @@
 
           <ol class="font">
             <li>
-              The combat zone can randomly occur two times during the 28 minutes of the test.
+              The combat zone will randomly occur two times during the 28 minutes of the test.
             </li>
             <br>
             <li>
-              When the combat zone is active, each correct answer will slow down the timer and wrong answers speed up the timer.
+              When the combat zone is active, each correct answer will slow down the timer and wrong answers will speed up the timer.
             </li><br>
             <li>
-              There will be three types of timer speeds during this zone, Normal, SlowMotion, and SuperSonic. 
+              There will be three types of timer speeds during this zone, Normal, SlowMotion, and SuperSonic.
             </li><br>
             <li>
               The red background around the timer will indicate that the timer has sped up and a green background signifies that the timer has slowed down.
+
             </li><br>
             <li>
-              The three types of timers will toggle according to the answers given by the participant. For example, if the timer was sped up during the previous question, but for the current question the answer chosen was correct then the timer will return back to the normal rate.
+              The three types of timers will toggle according to the answers given by the participant. For example, if the timer was sped up during the previous question, but the answer chosen was correct for the current question then the timer will return back to the normal rate.
             </li><br>
           </ol>
         </section>

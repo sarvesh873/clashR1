@@ -9,6 +9,7 @@
     <title>
         Clash
     </title>
+    <link rel="shortcut icon" type="immage/png" href="{% static 'login/img/favicon.ico' %}">
     <!-- GOOGLE FONT -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -24,11 +25,11 @@
 
 <body>
     <section class="navigation" style="width: auto;">
-        <img src="{% static 'login/img/clashwhite.png' %}" style="width: 100px; height: 35px; float: left; margin-top: 10px; margin-left: 5px">
+        <a href="{% url 'login' %}"><img  src="{% static 'login/img/clashwhite.png' %}" style="width: 80px; height: 35px; float: left; margin-top: 10px; margin-left: 5px"></a>
         <nav>
           <ul class="nav-list">
             <li>
-              <img src="{% static 'login/img/pisblogo.png' %}" style="width: 120px; height: 35px; margin-left: 20px; margin-top: 10px; margin-right: 20px; display: flex; justify-content: space-between;">
+                <a href="https://pictieee.in/" target="_blank"  > <img  src="{% static 'login/img/pisblogo.png' %}" style="width: 120px; height: 35px; margin-left: 20px; margin-top: 10px; margin-right: 20px; display: flex; justify-content: space-between;"></a>
             </li>
           </ul>
         </nav>
@@ -48,7 +49,7 @@
                                 <div class="counter-count">
                                     {{user.username}}
                                 </div>
-                                <i class='fa fa-user'></i>
+                                <i class='fa fa-user' style="color: white;"></i>
                             </div>
                         </div>
                         <!-- END COUNTER -->
@@ -65,7 +66,7 @@
                                 <div class="counter-count">
                                     {{profile.final_score}}
                                 </div>
-                                <i class='fa fa-line-chart'></i>
+                                <i class='fa fa-line-chart'  style="color: white;"></i>
                             </div>
                         </div>
                         <!-- END COUNTER -->
@@ -82,7 +83,7 @@
                                 <div class="counter-count">
                                     {{profile.number_of_submits}}
                                 </div>
-                                <i class='fa fa-question' style="font-size:35px"></i>
+                                <i class='fa fa-question' style="font-size:35px; color: white;"></i>
                             </div>
                         </div>
                         <!-- END COUNTER -->
@@ -99,7 +100,7 @@
                                 <div class="counter-count">
                                     {{profile.correct_ques}}
                                 </div>
-                                <i class='fa fa-check'></i>
+                                <i class='fa fa-check'  style="color: white;"></i>
                             </div>
                         </div>
                         <!-- END COUNTER -->
@@ -141,22 +142,26 @@
                                 <div class="row">
                                     <div class="gallery-item shoe">
                                         <div class="gallery-item-inner">
-                                            <img src="{% static 'login/img/cn1.jpg' %}" alt="sponsor1">
+                                            <a href="https://www.codingninjas.com/" target="_blank">
+                                            <img src="{% static 'login/img/cn1.jpg' %}" alt="sponsor1"></a>
                                         </div>
                                     </div>
                                     <div class="gallery-item headphone">
                                         <div class="gallery-item-inner">
-                                            <img src="{% static 'login/img/cn1.jpg' %}"  alt="sponsor2">
+                                            <a href="https://www.imperial-overseas.com/" target="_blank">
+                                            <img src="{% static 'login/img/Imperial.63d05fb5.jpeg' %}"  alt="sponsor2"></a>
                                         </div>
                                     </div>
                                     <div class="gallery-item camera">
                                         <div class="gallery-item-inner">
-                                            <img src="{% static 'login/img/cp2.jpg' %}" alt="sponsor3">
+                                            <a href="https://www.convergeapp.co/" target="_blank">
+                                            <img src="{% static 'login/img/convergeLogo.c50c9f30.jpeg' %}" alt="sponsor3"></a>
                                         </div>
                                     </div>
                                     <div class="gallery-item camera">
                                         <div class="gallery-item-inner">
-                                            <img src="{% static 'login/img/cp2.jpg' %}" alt="sponsor3">
+                                            <a href="https://chanakyamandal.org/" target="_blank">
+                                            <img src="{% static 'login/img/ChanakyaMandalPariwar.d99c9031.jpeg' %}" alt="sponsor3"> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +179,7 @@
 
     <div class="footer">
         <!-- <div class="leftieee">&copy; PICT IEEE Student Branch</div> -->
-        <div class="middleieee">&copy; PICT IEEE Student Branch</div>
+        <div class="middleieee">&copy; PICT IEEE Student Branch | Made with ❤️ by <a href="{% url 'webteam' %}" style="text-decoration: none; color:#51CCF1;">WebTeam</a> </div>
       </div>
       <!-- end of footer -->
 
@@ -248,6 +253,18 @@ document.getElementById('chart-legend').innerHTML = myPie.generateLegend();
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+  setInterval(function() {
+    cache_clear()
+  }, 3 * 60 * 1000);
+});
 
+function cache_clear() {
+  window.location.reload(true);
+  window.location.reload(); 
+}
+</script>
 
 </html>

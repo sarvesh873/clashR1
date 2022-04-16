@@ -9,9 +9,23 @@
     <h3 class="p"> User Password: - <input type="password" name="password" id="password" , required></h3><br>
     <h3 class="p"> Admin Username : - <input type="text" name="admin_username" id="admin_username" , required></h3><br>
     <h3 class="p"> Admin Password: - <input type="password" name="admin_password" id="admin_password" , required></h3><br>
-    
+    <h3 class="p"> Extra tab : <input type="text" name="extra_tab" , required></h3><br>
+
     <input type="submit" value="Submit">
     </form>
+<h2>  <a class="ml-2" href="{% url 'usname' %}" target="_blank" >Two users</a></h2>
+<br>
+<h2>  <a class="ml-2" href="{% url 'leaderboard' %}" target="_blank" >leaderboard1</a></h2>
+<br>
+<h2>  <a class="ml-2" href="{% url 'leaderboard2' %}" target="_blank" >leaderboard2</a></h2>
+<br>
+<div class="border-top pt-3">
+    <small class="text-muted">
+       <h2> admin's<a class="ml-2" href="{% url 'logout' %}">logout </a></h2>
+    </small>
+</div>
+
+
 
 
 {% endblock content %}
