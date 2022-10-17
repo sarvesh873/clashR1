@@ -14,7 +14,7 @@ import requests
 
 
 # total_ques = min(Question.objects.filter(level = "1").count(),Question.objects.filter(level = "2").count() )
-total_ques = 100
+total_ques = 10
 
 # Quiz View
 
